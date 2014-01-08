@@ -37,6 +37,11 @@ module PolishInvoicer
       @validator.valid?
     end
 
+    def price_in_words
+      # TODO netto/brutto...
+      PriceInWords.new(price).get
+    end
+
     def save_to_file(path)
       InvoiceSaver.new(self).save_to_file(path)
     end

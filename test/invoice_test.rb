@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'test_helper'
 
 module PolishInvoicer
@@ -23,6 +24,11 @@ module PolishInvoicer
       i.number = '1/2014'
       i.valid?
       assert_nil i.errors[:number]
+    end
+
+    def test_price_in_words
+      i = Invoice.new({price: 123.45})
+      assert_equal 'sto dwadzieścia trzy i 0,45 zł', i.price_in_words
     end
   end
 end
