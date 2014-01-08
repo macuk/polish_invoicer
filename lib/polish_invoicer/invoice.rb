@@ -1,21 +1,22 @@
+# encoding: utf-8
 module PolishInvoicer
   class Invoice
     AVAILABLE_PARAMS = [
-      :number,            # invoice number (string)
-      :create_date,       # creation date (date)
-      :trade_date,        # trading date (date)
-      :seller,            # seller name, address, nip (array of strings)
-      :buyer,             # buyer name, address, nip (array of strings)
-      :item_name,         # invoice title, service name (string)
-      :price,             # price in pln (float)
-      :gross_price,       # true if price is gross value (boolean)
-      :vat,               # vat rate (integer)
-      :pkwiu,             # PKWiU number (string)
-      :created_by,        # invoice creator name and surname (string)
-      :payment_type,      # type of payment (string)
-      :payment_date,      # date of payment (date)
-      :comments,          # comments (array of string)
-      :paid,              # true if invoice was paid (boolean)
+      :number,            # numer faktury (string)
+      :create_date,       # data wystawienia faktury (date)
+      :trade_date,        # data sprzedaży (date)
+      :seller,            # adres i nip sprzedawcy (tablica stringów)
+      :buyer,             # adres i nip nabywcy (tablica stringów)
+      :item_name,         # nazwa usługi (string)
+      :price,             # cena w złotych (float)
+      :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
+      :vat,               # stawka vat, domyślnie: 23 (integer)
+      :pkwiu,             # numer PKWiU (string)
+      :created_by,        # osoba wystawiająca fakturę (string)
+      :payment_type,      # rodzaj płatności, domyślnie: 'Przelew' (string)
+      :payment_date,      # termin płatności (date)
+      :comments,          # uwagi (string lub tablica stringów)
+      :paid,              # znacznik opłacenia faktury, domyślnie: true (boolean)
     ]
 
     attr_accessor *AVAILABLE_PARAMS

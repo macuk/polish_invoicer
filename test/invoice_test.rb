@@ -15,5 +15,14 @@ module PolishInvoicer
     def test_set_unavailable_param
       assert_raises(RuntimeError) { i = Invoice.new({test: 'abc'}) }
     end
+
+    def test_validation_delegation
+      i = Invoice.new
+      assert_equal false, i.valid?
+      assert i.errors[:number]
+      i.number = '1/2014'
+      i.valid?
+      assert_nil i.errors[:number]
+    end
   end
 end
