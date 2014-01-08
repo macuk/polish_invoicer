@@ -38,8 +38,24 @@ module PolishInvoicer
     end
 
     def price_in_words
-      # TODO netto/brutto...
-      PriceInWords.new(price).get
+      PriceInWords.new(gross_value).get
+    end
+
+    # cena/wartość netto
+    def net_value
+      return price unless gross_price
+      (price / (1 + Vat.to_i(vat)/100.0)).round(2)
+    end
+
+    # kwota VAT
+    def vat_value
+      ((gross_value * Vat.to_i(vat)) / (100.0 + Vat.to_i(vat))).round(2)
+    end
+
+    # cena/wartość brutto
+    def gross_value
+      return price if gross_price
+      (price + price * Vat.to_i(vat)/100.0).round(2)
     end
 
     def save_to_file(path)

@@ -17,6 +17,11 @@ module PolishInvoicer
       hash.invert[rate]
     end
 
+    # Potrzebne do obliczeń netto/vat/brutto
+    def self.to_i(rate)
+      (rate != -1) ? rate : 0
+    end
+
     protected
       def self.hash
         h = {}
