@@ -22,6 +22,7 @@ module PolishInvoicer
     attr_accessor *AVAILABLE_PARAMS
 
     def initialize(params={})
+      set_defaults
       params.each do |k, v|
         raise unless AVAILABLE_PARAMS.include?(k)
         send("#{k}=", v)
@@ -61,5 +62,13 @@ module PolishInvoicer
     def save_to_file(path)
       InvoiceSaver.new(self).save_to_file(path)
     end
+
+    protected
+      def set_defaults
+        @gross_price = true
+        @vat = 23
+        @payment_type = 'Przelew'
+        @paid = true
+      end
   end
 end

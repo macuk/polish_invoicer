@@ -73,5 +73,13 @@ module PolishInvoicer
       i.vat = -1
       assert_equal 123.45, i.gross_value
     end
+
+    def test_defaults
+      i = Invoice.new
+      assert i.gross_price
+      assert 23, i.vat
+      assert 'Przelew', i.payment_type
+      assert i.paid
+    end
   end
 end
