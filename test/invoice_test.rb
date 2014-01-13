@@ -87,6 +87,14 @@ module PolishInvoicer
       assert_raises(RuntimeError) { i.to_pdf('/tmp/test.pdf') }
     end
 
+    def test_to_pdf
+      i = create_valid_invoice
+      path = '/tmp/test.pdf'
+      i.to_pdf(path)
+      assert File.exists?(path)
+      File.unlink(path)
+    end
+
     def test_to_hash
       i = Invoice.new({price: 123.45})
       h = i.to_hash

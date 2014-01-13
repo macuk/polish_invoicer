@@ -4,6 +4,7 @@ require 'pathname'
 require "polish_invoicer/version"
 require "polish_invoicer/vat"
 require "polish_invoicer/invoice_validator"
+require 'erb2pdf'
 require "polish_invoicer/invoice_saver"
 require "polish_number"
 require "polish_invoicer/price_in_words"

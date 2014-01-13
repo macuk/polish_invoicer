@@ -13,8 +13,9 @@ module PolishInvoicer
       erb2pdf = ::Erb2pdf.new(template_path, path)
       erb2pdf.wkhtmltopdf_path = wkhtmltopdf_path if wkhtmltopdf_path
       erb2pdf.logger = logger
-      erb2pdf.footer = @invoice.data[:footer]
-      erb2pdf.generate(@invoice.data)
+      data = @invoice.to_hash
+      erb2pdf.footer = data[:footer]
+      erb2pdf.generate(data)
     end
 
     protected
