@@ -1,10 +1,26 @@
 module PolishInvoicer
   class InvoiceSaver
+    attr_accessor :invoice, :template_path
+    attr_accessor :logger, :wkhtmltopdf_path
+
     def initialize(invoice)
       @invoice = invoice
+      @template_path = File.expand_path('../../../tpl/invoice.html.erb', __FILE__)
     end
 
     def save_to_file(path)
+      create_dir(path)
+      erb2pdf = ::Erb2pdf.new(template_path, path)
+      erb2pdf.wkhtmltopdf_path = wkhtmltopdf_path if wkhtmltopdf_path
+      erb2pdf.logger = logger
+      erb2pdf.footer = @invoice.data[:footer]
+      erb2pdf.generate(@invoice.data)
     end
+
+    protected
+      def create_dir(path)
+        dir = Pathname.new(path).dirname
+        FileUtils.mkdir_p(dir) unless File.directory?(dir)
+      end
   end
 end

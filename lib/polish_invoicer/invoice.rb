@@ -17,6 +17,7 @@ module PolishInvoicer
       :payment_date,      # termin płatności (date)
       :comments,          # uwagi (string lub tablica stringów)
       :paid,              # znacznik opłacenia faktury, domyślnie: true (boolean)
+      :footer,            # treść umieszczana w stopce faktury (string)
     ]
 
     attr_accessor *AVAILABLE_PARAMS
@@ -24,7 +25,7 @@ module PolishInvoicer
     def initialize(params={})
       set_defaults
       params.each do |k, v|
-        raise unless AVAILABLE_PARAMS.include?(k)
+        raise 'Nierozpoznany parametr' unless AVAILABLE_PARAMS.include?(k)
         send("#{k}=", v)
       end
       @validator = InvoiceValidator.new(self)
@@ -60,6 +61,7 @@ module PolishInvoicer
     end
 
     def save_to_file(path)
+      raise 'Parametry do wystawienia faktury są nieprawidłowe' unless valid?
       InvoiceSaver.new(self).save_to_file(path)
     end
 

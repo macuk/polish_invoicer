@@ -1,4 +1,5 @@
 require "date"
+require 'pathname'
 
 require "polish_invoicer/version"
 require "polish_invoicer/vat"
