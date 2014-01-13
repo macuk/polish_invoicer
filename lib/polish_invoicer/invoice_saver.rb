@@ -8,7 +8,7 @@ module PolishInvoicer
       @template_path = File.expand_path('../../../tpl/invoice.html.erb', __FILE__)
     end
 
-    def save_to_file(path)
+    def to_pdf(path)
       create_dir(path)
       erb2pdf = ::Erb2pdf.new(template_path, path)
       erb2pdf.wkhtmltopdf_path = wkhtmltopdf_path if wkhtmltopdf_path

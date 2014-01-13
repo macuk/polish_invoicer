@@ -82,9 +82,9 @@ module PolishInvoicer
       assert i.paid
     end
 
-    def test_raise_when_save_to_file_and_not_valid
+    def test_raise_when_save_to_pdf_and_not_valid
       i = Invoice.new
-      assert_raises(RuntimeError) { i.save_to_file('test.pdf') }
+      assert_raises(RuntimeError) { i.to_pdf('/tmp/test.pdf') }
     end
 
     def test_to_hash
