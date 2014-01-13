@@ -63,6 +63,18 @@ module PolishInvoicer
       InvoiceSaver.new(self).save_to_file(path)
     end
 
+    # Wszystkie dane w postaci hash-a
+    def to_hash
+      out = {}
+      AVAILABLE_PARAMS.each do |field|
+        out[field] = send(field)
+      end
+      %w(price_in_words net_value vat_value gross_value).each do |field|
+        out[field.to_sym] = send(field)
+      end
+      out
+    end
+
     protected
       def set_defaults
         @gross_price = true

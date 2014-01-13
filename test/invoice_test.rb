@@ -81,5 +81,12 @@ module PolishInvoicer
       assert 'Przelew', i.payment_type
       assert i.paid
     end
+    def test_to_hash
+      i = Invoice.new({price: 123.45})
+      h = i.to_hash
+      assert_equal 23, h[:vat] # default
+      assert_equal 123.45, h[:price] # params
+      assert_equal 'sto dwadzieścia trzy i 0,45 zł', h[:price_in_words] # method
+    end
   end
 end
