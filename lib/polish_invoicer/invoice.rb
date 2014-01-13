@@ -18,6 +18,7 @@ module PolishInvoicer
       :comments,          # uwagi (string lub tablica stringów)
       :paid,              # znacznik opłacenia faktury, domyślnie: true (boolean)
       :footer,            # treść umieszczana w stopce faktury (string)
+      :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
     ]
 
     attr_accessor *AVAILABLE_PARAMS
@@ -83,6 +84,7 @@ module PolishInvoicer
         @vat = 23
         @payment_type = 'Przelew'
         @paid = true
+        @proforma = false
       end
   end
 end

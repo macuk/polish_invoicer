@@ -80,6 +80,7 @@ module PolishInvoicer
       assert 23, i.vat
       assert 'Przelew', i.payment_type
       assert i.paid
+      assert_equal false, i.proforma
     end
 
     def test_raise_when_save_to_pdf_and_not_valid

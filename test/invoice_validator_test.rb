@@ -118,5 +118,12 @@ module PolishInvoicer
       check_ok(:paid, true)
       check_ok(:paid, false)
     end
+
+    def test_proforma_validation
+      check_error(:proforma)
+      check_error(:proforma, 'test')
+      check_ok(:proforma, true)
+      check_ok(:proforma, false)
+    end
   end
 end
