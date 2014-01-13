@@ -40,11 +40,16 @@
   </head>
   <body>
     <div class="fl">
-      <h1><% data[:proforma] ? 'Proforma' : 'Faktura' %> nr <%= data[:number] %></h1>
-      <label>Data wystawienia:</label> <%= date_format data[:create_date] %><br />
+      <% if data[:proforma] %>
+        <p><b>Proforma nie jest dowodem księgowym i nie należy jej księgować.</b></p>
+      <% end %>
+
+      <h1><%= data[:proforma] ? 'Proforma' : 'Faktura' %> nr <%= data[:number] %></h1>
+
       <% unless data[:proforma] %>
         <label>Data sprzedaży:</label> <%= date_format data[:trade_date] %><br />
       <% end %>
+      <label>Data wystawienia:</label> <%= date_format data[:create_date] %><br />
       <label>Sposób zapłaty:</label> <%= data[:payment_type] %><br />
       <label>Termin płatności:</label>
       <% if data[:paid] %>
@@ -64,7 +69,9 @@
     <table>
       <tr>
         <th width="30%" class="tal">Nazwa towaru/usługi</th>
-        <th width="1%" class="tam">PKWiU</th>
+        <% if data[:pkwiu] %>
+          <th width="1%" class="tam">PKWiU</th>
+        <% end %>
         <th width="1%">Il.</th>
         <th width="1%">J.m.</th>
         <th width="5%" class="tar">Cena netto</th>
@@ -77,7 +84,9 @@
       </tr>
       <tr>
         <td class="tal"><%= data[:item_name] %></td>
-        <td class="tam"><%= data[:pkwiu] %></td>
+        <% if data[:pkwiu] %>
+          <td class="tam"><%= data[:pkwiu] %></td>
+        <% end %>
         <td class="tam">1</td>
         <td class="tam">usł.</td>
         <td class="tar"><%= money_format data[:net_value] %></td>
@@ -89,7 +98,7 @@
         <td class="tar"><%= money_format data[:price] %></td>
       </tr>
       <tr>
-        <td class="no-border" colspan="4">&nbsp;</td>
+        <td class="no-border" colspan="<%= data[:pkwiu] ? '4' : '3' %>">&nbsp;</td>
         <td class="no-border tar">Razem</td>
         <td class="tar"><%= money_format data[:net_value] %></td>
         <% unless data[:proforma] %>
@@ -102,18 +111,26 @@
 
     <div class="space">&nbsp;</div>
 
-    <label>Do zapłaty:</label> <%= money_format data[:price] %>&nbsp;zł<br />
+    <label>Razem do zapłaty:</label> <%= money_format data[:price] %>&nbsp;zł<br />
     <label>Słownie:</label> <%= data[:price_in_words] %><br />
-    <% if data[:comment] %>
-      <p><label>Uwagi:</label> <%= data[:comment] %></p>
+    <label>Zapłacono:</label> <%= data[:paid] ? money_format(data[:price]) : money_format(0) %>&nbsp;zł<br />
+    <label>Pozostało do zapłaty:</label> <%= data[:paid] ? money_format(0) : money_format(data[:price]) %>&nbsp;zł<br />
+    <% if data[:comments] %>
+      <p>
+        <label>Uwagi:</label>
+        <% if data[:comments].is_a?(String) %>
+          <%= simple_format(data[:comments]) %>
+        <% else %>
+          <% data[:comments].each do |line| %>
+            <%= simple_format(line) %>
+            <br />
+            <label>&nbsp;</label>
+          <% end %>
+        <% end %>
+      </p>
     <% end %>
 
     <div class="space">&nbsp;</div>
-
-    <% if data[:proforma] %>
-      <p><b>Proforma nie jest dowodem księgowym i nie należy jej księgować.</b></p>
-      <div class="space">&nbsp;</div>
-    <% end %>
 
     <p class="fl tam">Osoba upoważniona do wystawienia faktury VAT<br /><b><%= data[:created_by] %></b></p>
     <p class="fr">Faktura bez podpisu odbiorcy</p>
