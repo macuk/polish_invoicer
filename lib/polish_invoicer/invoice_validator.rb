@@ -17,6 +17,7 @@ module PolishInvoicer
       check_booleans
       check_price
       check_vat
+      check_proforma
       @errors.empty?
     end
 
@@ -79,6 +80,12 @@ module PolishInvoicer
             @errors[:pkwiu] = 'Konieczne jest podanie podstawy prawnej zwolnienia z podatku VAT'
           end
         end
+      end
+
+      def check_proforma
+        return unless @invoice.proforma
+        return unless @invoice.paid
+        @errors[:paid] = 'Proforma nie może być opłacona'
       end
 
       def blank?(value)

@@ -125,5 +125,15 @@ module PolishInvoicer
       check_ok(:proforma, true)
       check_ok(:proforma, false)
     end
+
+    def test_proforma_could_not_be_paid
+      i = create_valid_invoice
+      i.proforma = true
+      assert_equal false, i.valid?
+      assert i.errors[:paid]
+      i.paid = false
+      assert i.valid?
+      assert_nil i.errors[:paid]
+    end
   end
 end
