@@ -12,7 +12,6 @@ module PolishInvoicer
       :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
       :vat,               # stawka vat, domyślnie: 23 (integer)
       :pkwiu,             # numer PKWiU (string)
-      :created_by,        # osoba wystawiająca fakturę (string)
       :payment_type,      # rodzaj płatności, domyślnie: 'Przelew' (string)
       :payment_date,      # termin płatności (date)
       :comments,          # uwagi (string lub tablica stringów)

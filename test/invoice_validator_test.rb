@@ -94,11 +94,6 @@ module PolishInvoicer
       assert_nil v.errors[:pkwiu]
     end
 
-    def test_created_by_validation
-      check_error(:created_by)
-      check_ok(:created_by, 'Jan Nowak')
-    end
-
     def test_payment_type_validation
       check_error(:payment_type)
       check_ok(:payment_type, 'Przelew')

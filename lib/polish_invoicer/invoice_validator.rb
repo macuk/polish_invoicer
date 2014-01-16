@@ -31,7 +31,6 @@ module PolishInvoicer
         check_blank(:item_name, 'Nazwa usługi nie może być pusta')
         check_blank(:price, 'Cena nie może być pusta')
         check_blank(:vat, 'Stawka VAT nie może być pusta')
-        check_blank(:created_by, 'Konieczne jest podanie osoby wystawiającej dokument')
         check_blank(:payment_type, 'Rodzaj płatności nie może być pusty')
         check_blank(:payment_date, 'Termin płatności nie może być pusty')
       end
