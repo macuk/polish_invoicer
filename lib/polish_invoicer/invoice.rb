@@ -6,7 +6,9 @@ module PolishInvoicer
       :create_date,       # data wystawienia faktury (date)
       :trade_date,        # data sprzedaży (date)
       :seller,            # adres i nip sprzedawcy (tablica stringów)
+      :seller_nip,        # NIP sprzedawcy (string)
       :buyer,             # adres i nip nabywcy (tablica stringów)
+      :buyer_nip,         # NIP nabywcy (string)
       :item_name,         # nazwa usługi (string)
       :price,             # cena w złotych (float)
       :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
@@ -26,7 +28,7 @@ module PolishInvoicer
     def initialize(params={})
       set_defaults
       params.each do |k, v|
-        raise 'Nierozpoznany parametr' unless AVAILABLE_PARAMS.include?(k)
+        raise "Nierozpoznany parametr #{k}" unless AVAILABLE_PARAMS.include?(k)
         send("#{k}=", v)
       end
       @validator = Validator.new(self)

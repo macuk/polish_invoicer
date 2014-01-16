@@ -33,6 +33,8 @@ module PolishInvoicer
         check_blank(:vat, 'Stawka VAT nie może być pusta')
         check_blank(:payment_type, 'Rodzaj płatności nie może być pusty')
         check_blank(:payment_date, 'Termin płatności nie może być pusty')
+        check_blank(:seller_nip, 'NIP sprzedawcy nie może być pusty')
+        check_blank(:buyer_nip, 'NIP nabywcy nie może być pusty')
       end
 
       def check_not_nil
