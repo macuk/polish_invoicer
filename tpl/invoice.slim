@@ -30,11 +30,13 @@ html
           - seller.each do |line|
             = line
             br
+          = "NIP: #{seller_nip}"
         .col-xs-6
           h4 Nabywca
           - buyer.each do |line|
             = line
             br
+          = "NIP: #{buyer_nip}"
 
       hr
 
@@ -98,31 +100,29 @@ html
       br
       hr
 
-      - show_comments = [comments].flatten.any?
-
       .row
         .col-xs-3
           b Razem do zapłaty:
           br
           | Zapłacono:
           br
-          | Pozostało do zapłaty:
+          | Zostało do zapłaty:
         .col-xs-3
-          b = gross_value
+          b = "#{gross_value} zł"
           br
           - if paid
-            = gross_value
+            = "#{gross_value} zł"
           - else
-            | 0.00 zł
+            | 0,00 zł
           br
           - if paid
-            | 0.00 zł
+            | 0,00 zł
           - else
-            = gross_value
-        - if show_comments
+            = "#{gross_value} zł"
+        - if comments.any?
           .col-xs-6
             b Uwagi:
             br
-            - [comments].flatten.each do |line|
+            - comments.each do |line|
               = line
               br
