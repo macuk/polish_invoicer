@@ -40,10 +40,6 @@ module PolishInvoicer
       @validator.valid?
     end
 
-    def price_in_words
-      PriceInWords.new(gross_value).get
-    end
-
     # cena/wartość netto
     def net_value
       return price unless gross_price
@@ -72,7 +68,7 @@ module PolishInvoicer
       AVAILABLE_PARAMS.each do |field|
         out[field] = send(field)
       end
-      %w(price_in_words net_value vat_value gross_value).each do |field|
+      %w(net_value vat_value gross_value).each do |field|
         out[field.to_sym] = send(field)
       end
       out

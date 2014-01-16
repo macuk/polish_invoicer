@@ -26,11 +26,6 @@ module PolishInvoicer
       assert_nil i.errors[:number]
     end
 
-    def test_price_in_words
-      i = Invoice.new({price: 123.45, gross_price: true})
-      assert_equal 'sto dwadzieścia trzy i 0,45 zł', i.price_in_words
-    end
-
     def test_net_value
       i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
       assert_equal 123.45, i.net_value
@@ -101,7 +96,6 @@ module PolishInvoicer
       h = i.to_hash
       assert_equal 23, h[:vat] # default
       assert_equal 123.45, h[:price] # params
-      assert_equal 'sto dwadzieścia trzy i 0,45 zł', h[:price_in_words] # method
     end
   end
 end
