@@ -21,6 +21,7 @@ module PolishInvoicer
     ]
 
     attr_accessor *AVAILABLE_PARAMS
+    attr_accessor :template_path, :logger, :wkhtmltopdf_command
 
     def initialize(params={})
       set_defaults

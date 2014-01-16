@@ -5,7 +5,10 @@ module PolishInvoicer
 
     def initialize(invoice)
       @invoice = invoice
-      @template_path = File.expand_path('../../../tpl/invoice.slim', __FILE__)
+      default_template_path = File.expand_path('../../../tpl/invoice.slim', __FILE__)
+      @template_path = @invoice.template_path || default_template_path
+      @logger = @invoice.logger
+      @wkhtmltopdf_command = @invoice.wkhtmltopdf_command
     end
 
     def save_to_html(path)

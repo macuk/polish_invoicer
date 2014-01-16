@@ -20,5 +20,16 @@ module PolishInvoicer
       assert File.exists?(path)
       File.unlink(path)
     end
+
+    def test_setting_additional_params
+      invoice = create_valid_invoice
+      invoice.template_path = 'tpl.slim'
+      invoice.logger = 'FakeLogger'
+      invoice.wkhtmltopdf_command = 'wkhtmltopdf_fake_command'
+      saver = InvoiceSaver.new(invoice)
+      assert_equal 'tpl.slim', saver.template_path
+      assert_equal 'FakeLogger', saver.logger
+      assert_equal 'wkhtmltopdf_fake_command', saver.wkhtmltopdf_command
+    end
   end
 end
