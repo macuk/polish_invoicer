@@ -122,13 +122,15 @@ module PolishInvoicer
     end
 
     def test_proforma_could_not_be_paid
-      i = create_valid_invoice
-      i.proforma = true
-      assert_equal false, i.valid?
-      assert i.errors[:paid]
-      i.paid = false
-      assert i.valid?
-      assert_nil i.errors[:paid]
+      @invoice.paid = true
+      @invoice.proforma = true
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[:paid]
+      @invoice.paid = false
+      v = Validator.new(@invoice)
+      v.valid?
+      assert_nil v.errors[:paid]
     end
   end
 end
