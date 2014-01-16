@@ -60,12 +60,12 @@ module PolishInvoicer
     end
 
     def save_to_html(path)
-      raise 'Parametry do wystawienia faktury są nieprawidłowe' unless valid?
+      validate!
       Writer.new(self).save_to_html(path)
     end
 
     def save_to_pdf(path)
-      raise 'Parametry do wystawienia faktury są nieprawidłowe' unless valid?
+      validate!
       Writer.new(self).save_to_pdf(path)
     end
 
@@ -81,6 +81,12 @@ module PolishInvoicer
         @payment_type = 'Przelew'
         @paid = true
         @proforma = false
+      end
+
+      def validate!
+        return if valid?
+        error_messages = errors.map { |k, v| "#{k}: #{v}" }.join(', ')
+        raise "Parametry do wystawienia faktury są nieprawidłowe: #{error_messages}"
       end
   end
 end
