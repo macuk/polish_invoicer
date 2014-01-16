@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module PolishInvoicer
-  class InvoiceValidatorTest < MiniTest::Unit::TestCase
+  class ValidatorTest < MiniTest::Unit::TestCase
     require 'ostruct'
 
     def setup
@@ -10,14 +10,14 @@ module PolishInvoicer
 
     def check_error(field, value=nil)
       @invoice.send("#{field}=", value)
-      v = InvoiceValidator.new(@invoice)
+      v = Validator.new(@invoice)
       v.valid?
       assert v.errors[field]
     end
 
     def check_ok(field, value=nil)
       @invoice.send("#{field}=", value)
-      v = InvoiceValidator.new(@invoice)
+      v = Validator.new(@invoice)
       v.valid?
       assert_nil v.errors[field]
     end
@@ -85,11 +85,11 @@ module PolishInvoicer
 
     def test_pkwiu_validation
       @invoice.vat = -1
-      v = InvoiceValidator.new(@invoice)
+      v = Validator.new(@invoice)
       v.valid?
       assert v.errors[:pkwiu]
       @invoice.pkwiu = 'art 10'
-      v = InvoiceValidator.new(@invoice)
+      v = Validator.new(@invoice)
       v.valid?
       assert_nil v.errors[:pkwiu]
     end

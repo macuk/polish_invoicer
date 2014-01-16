@@ -1,6 +1,6 @@
 # encoding: utf-8
 module PolishInvoicer
-  class InvoiceValidator
+  class Validator
     attr_reader :errors
 
     def initialize(invoice)

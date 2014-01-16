@@ -29,7 +29,7 @@ module PolishInvoicer
         raise 'Nierozpoznany parametr' unless AVAILABLE_PARAMS.include?(k)
         send("#{k}=", v)
       end
-      @validator = InvoiceValidator.new(self)
+      @validator = Validator.new(self)
     end
 
     def errors
