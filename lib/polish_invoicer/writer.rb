@@ -1,5 +1,5 @@
 module PolishInvoicer
-  class InvoiceSaver
+  class Writer
     attr_accessor :invoice, :template_path
     attr_accessor :logger, :wkhtmltopdf_command
 

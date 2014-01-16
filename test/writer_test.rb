@@ -2,21 +2,21 @@
 require 'test_helper'
 
 module PolishInvoicer
-  class InvoiceSaverTest < MiniTest::Unit::TestCase
+  class WriterTest < MiniTest::Unit::TestCase
     def test_save_to_html
       invoice = create_valid_invoice
-      saver = InvoiceSaver.new(invoice)
+      writer = Writer.new(invoice)
       path = '/tmp/test.html'
-      saver.save_to_html(path)
+      writer.save_to_html(path)
       assert File.exists?(path)
       File.unlink(path)
     end
 
     def test_save_to_pdf
       invoice = create_valid_invoice
-      saver = InvoiceSaver.new(invoice)
+      writer = Writer.new(invoice)
       path = '/tmp/test.pdf'
-      saver.save_to_pdf(path)
+      writer.save_to_pdf(path)
       assert File.exists?(path)
       File.unlink(path)
     end
@@ -26,10 +26,10 @@ module PolishInvoicer
       invoice.template_path = 'tpl.slim'
       invoice.logger = 'FakeLogger'
       invoice.wkhtmltopdf_command = 'wkhtmltopdf_fake_command'
-      saver = InvoiceSaver.new(invoice)
-      assert_equal 'tpl.slim', saver.template_path
-      assert_equal 'FakeLogger', saver.logger
-      assert_equal 'wkhtmltopdf_fake_command', saver.wkhtmltopdf_command
+      writer = Writer.new(invoice)
+      assert_equal 'tpl.slim', writer.template_path
+      assert_equal 'FakeLogger', writer.logger
+      assert_equal 'wkhtmltopdf_fake_command', writer.wkhtmltopdf_command
     end
   end
 end
