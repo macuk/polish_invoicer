@@ -3,20 +3,20 @@ require 'test_helper'
 
 module PolishInvoicer
   class InvoiceSaverTest < MiniTest::Unit::TestCase
-    def test_to_pdf
+    def test_save_to_html
       invoice = create_valid_invoice
       saver = InvoiceSaver.new(invoice)
-      path = '/tmp/test.pdf'
-      saver.to_pdf(path)
+      path = '/tmp/test.html'
+      saver.save_to_html(path)
       assert File.exists?(path)
       File.unlink(path)
     end
 
-    def test_to_pdf_with_subdir_creation
+    def test_save_to_pdf
       invoice = create_valid_invoice
       saver = InvoiceSaver.new(invoice)
-      path = '/tmp/a/b/c/d/test.pdf'
-      saver.to_pdf(path)
+      path = '/tmp/test.pdf'
+      saver.save_to_pdf(path)
       assert File.exists?(path)
       File.unlink(path)
     end

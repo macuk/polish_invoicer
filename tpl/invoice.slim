@@ -1,0 +1,128 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+    title Slim Examples
+    css:
+      body, h1, h2, h3, h4, h5, h6 { font-family: verdana, helvetica, arial, sans-serif; }
+
+  body
+    .container
+
+      - if proforma
+        h5.text-center Proforma nie jest dowodem księgowym i nie należy jej księgować.
+
+      br
+      br
+
+      h1
+        = proforma ? 'Proforma' : 'Faktura'
+      h3
+        = "Nr #{number}"
+
+      br
+      br
+
+      .row
+        .col-xs-6
+          h4 Sprzedawca
+          - seller.each do |line|
+            = line
+            br
+        .col-xs-6
+          h4 Nabywca
+          - buyer.each do |line|
+            = line
+            br
+
+      hr
+
+      .row
+        .col-xs-3
+          | Data wystawienia:
+          - unless proforma
+            br
+            | Data sprzedaży:
+        .col-xs-3
+          = create_date
+          - unless proforma
+            br
+            = trade_date
+        .col-xs-3
+          | Termin płatności:
+          br
+          | Sposób zapłaty:
+        .col-xs-3
+          = payment_date
+          br
+          = payment_type
+
+      br
+      br
+
+      table.table.table-condensed
+        tr
+          th width="40%" Usługa
+          - if pkwiu
+            th.text-center width="1%" PKWiU
+          th.text-center width="7%" Ilość
+          th.text-center width="7%" Cena netto
+          th.text-center width="7%" Wart. netto
+          - unless proforma
+            th.text-center width="1%" VAT
+            th.text-center width="7%" Kwota VAT
+          th.text-center width="7%" Wart. brutto
+        tr
+          td = item_name
+          - if pkwiu
+            td.text-center = pkwiu
+          td.text-center
+            | 1&nbsp;usł.
+          td.text-center = net_value
+          td.text-center = net_value
+          - unless proforma
+            td.text-center = vat
+            td.text-center = vat_value
+          td.text-center = gross_value
+        tr
+          td colspan="#{pkwiu ? 3 : 2}"
+            | &nbsp;
+          th.text-center Razem
+          td.text-center = net_value
+          - unless proforma
+            td.text-center = vat
+            td.text-center = vat_value
+          td.text-center = gross_value
+
+      br
+      hr
+
+      - show_comments = [comments].flatten.any?
+
+      .row
+        .col-xs-3
+          b Razem do zapłaty:
+          br
+          | Zapłacono:
+          br
+          | Pozostało do zapłaty:
+        .col-xs-3
+          b = gross_value
+          br
+          - if paid
+            = gross_value
+          - else
+            | 0.00 zł
+          br
+          - if paid
+            | 0.00 zł
+          - else
+            = gross_value
+        - if show_comments
+          .col-xs-6
+            b Uwagi:
+            br
+            - [comments].flatten.each do |line|
+              = line
+              br

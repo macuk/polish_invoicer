@@ -56,9 +56,14 @@ module PolishInvoicer
       (price + price * Vat.to_i(vat)/100.0).round(2)
     end
 
-    def to_pdf(path)
+    def save_to_html(path)
       raise 'Parametry do wystawienia faktury są nieprawidłowe' unless valid?
-      InvoiceSaver.new(self).to_pdf(path)
+      InvoiceSaver.new(self).save_to_html(path)
+    end
+
+    def save_to_pdf(path)
+      raise 'Parametry do wystawienia faktury są nieprawidłowe' unless valid?
+      InvoiceSaver.new(self).save_to_pdf(path)
     end
 
     # Wszystkie dane w postaci hash-a

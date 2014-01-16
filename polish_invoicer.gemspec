@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "simplecov"
 
-  spec.add_dependency 'erb2pdf', '~> 0.0.3'
+  spec.add_dependency 'slim2pdf', '~> 0.0.2'
 end

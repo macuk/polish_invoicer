@@ -78,15 +78,28 @@ module PolishInvoicer
       assert_equal false, i.proforma
     end
 
-    def test_raise_when_save_to_pdf_and_not_valid
+    def test_raise_when_save_to_html_and_not_valid
       i = Invoice.new
-      assert_raises(RuntimeError) { i.to_pdf('/tmp/test.pdf') }
+      assert_raises(RuntimeError) { i.save_to_html('/tmp/test.html') }
     end
 
-    def test_to_pdf
+    def test_raise_when_save_to_pdf_and_not_valid
+      i = Invoice.new
+      assert_raises(RuntimeError) { i.save_to_pdf('/tmp/test.pdf') }
+    end
+
+    def test_save_to_html
+      i = create_valid_invoice
+      path = '/tmp/test.html'
+      i.save_to_html(path)
+      assert File.exists?(path)
+      File.unlink(path)
+    end
+
+    def test_save_to_pdf
       i = create_valid_invoice
       path = '/tmp/test.pdf'
-      i.to_pdf(path)
+      i.save_to_pdf(path)
       assert File.exists?(path)
       File.unlink(path)
     end
