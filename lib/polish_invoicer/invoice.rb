@@ -45,18 +45,18 @@ module PolishInvoicer
     # cena/wartość netto
     def net_value
       return price unless gross_price
-      (price / (1 + Vat.to_i(vat)/100.0)).round(2)
+      price / (1 + Vat.to_i(vat)/100.0)
     end
 
     # kwota VAT
     def vat_value
-      ((gross_value * Vat.to_i(vat)) / (100.0 + Vat.to_i(vat))).round(2)
+      (gross_value * Vat.to_i(vat)) / (100.0 + Vat.to_i(vat))
     end
 
     # cena/wartość brutto
     def gross_value
       return price if gross_price
-      (price + price * Vat.to_i(vat)/100.0).round(2)
+      price + price * Vat.to_i(vat)/100.0
     end
 
     def save_to_html(path)
@@ -71,14 +71,7 @@ module PolishInvoicer
 
     # Wszystkie dane w postaci hash-a
     def to_hash
-      out = {}
-      AVAILABLE_PARAMS.each do |field|
-        out[field] = send(field)
-      end
-      %w(net_value vat_value gross_value).each do |field|
-        out[field.to_sym] = send(field)
-      end
-      out
+      Presenter.new(self).data
     end
 
     protected

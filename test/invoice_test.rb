@@ -28,25 +28,25 @@ module PolishInvoicer
 
     def test_net_value
       i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
-      assert_equal 123.45, i.net_value
+      assert_in_delta 123.45, i.net_value, 0.01
       i.gross_price = true
-      assert_equal 100.37, i.net_value
+      assert_in_delta 100.37, i.net_value, 0.01
       i.vat = 0
-      assert_equal 123.45, i.net_value
+      assert_in_delta 123.45, i.net_value, 0.01
       i.vat = -1
-      assert_equal 123.45, i.net_value
+      assert_in_delta 123.45, i.net_value, 0.01
       i.gross_price = false
       i.vat = 0
-      assert_equal 123.45, i.net_value
+      assert_in_delta 123.45, i.net_value, 0.01
       i.vat = -1
-      assert_equal 123.45, i.net_value
+      assert_in_delta 123.45, i.net_value, 0.01
     end
 
     def test_vat_value
       i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
-      assert_equal 28.39, i.vat_value
+      assert_in_delta 28.39, i.vat_value, 0.01
       i.gross_price = true
-      assert_equal 23.08, i.vat_value
+      assert_in_delta 23.08, i.vat_value, 0.01
       i.vat = 0
       assert_equal 0.00, i.vat_value
       i.vat = -1
@@ -55,18 +55,18 @@ module PolishInvoicer
 
     def test_gross_value
       i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
-      assert_equal 151.84, i.gross_value
+      assert_in_delta 151.84, i.gross_value, 0.01
       i.gross_price = true
-      assert_equal 123.45, i.gross_value
+      assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = 0
-      assert_equal 123.45, i.gross_value
+      assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = -1
-      assert_equal 123.45, i.gross_value
+      assert_in_delta 123.45, i.gross_value, 0.01
       i.gross_price = false
       i.vat = 0
-      assert_equal 123.45, i.gross_value
+      assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = -1
-      assert_equal 123.45, i.gross_value
+      assert_in_delta 123.45, i.gross_value, 0.01
     end
 
     def test_defaults
@@ -109,6 +109,7 @@ module PolishInvoicer
       h = i.to_hash
       assert_equal 23, h[:vat] # default
       assert_equal 123.45, h[:price] # params
+      assert_in_delta 100.37, h[:net_value], 0.01 # method
     end
   end
 end
