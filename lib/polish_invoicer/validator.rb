@@ -78,8 +78,8 @@ module PolishInvoicer
         unless Vat.valid?(@invoice.vat)
           @errors[:vat] = 'Stawka VAT spoza listy dopuszczalnych wartości'
         else
-          if Vat.zw?(@invoice.vat) and blank?(@invoice.pkwiu)
-            @errors[:pkwiu] = 'Konieczne jest podanie podstawy prawnej zwolnienia z podatku VAT'
+          if Vat.zw?(@invoice.vat) and blank?(@invoice.no_vat_reason)
+            @errors[:no_vat_reason] = 'Konieczne jest podanie podstawy prawnej zwolnienia z podatku VAT'
           end
         end
       end

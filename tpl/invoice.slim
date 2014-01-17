@@ -100,7 +100,6 @@ html
           th.text-center = gross_value
 
       br
-      hr
 
       .row
         .col-xs-3
@@ -128,3 +127,10 @@ html
             - comments.each do |line|
               = line
               br
+
+      - if no_vat_reason
+        br
+        p
+          b Podstawa zwolnienia z podatku VAT:
+          br
+          = no_vat_reason

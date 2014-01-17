@@ -20,6 +20,7 @@ module PolishInvoicer
       :paid,              # znacznik opłacenia faktury, domyślnie: true (boolean)
       :footer,            # treść umieszczana w stopce faktury (string)
       :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
+      :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
     ]
 
     attr_accessor *AVAILABLE_PARAMS

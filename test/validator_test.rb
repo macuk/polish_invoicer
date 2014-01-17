@@ -83,17 +83,6 @@ module PolishInvoicer
       check_ok(:vat, -1)
     end
 
-    def test_pkwiu_validation
-      @invoice.vat = -1
-      v = Validator.new(@invoice)
-      v.valid?
-      assert v.errors[:pkwiu]
-      @invoice.pkwiu = 'art 10'
-      v = Validator.new(@invoice)
-      v.valid?
-      assert_nil v.errors[:pkwiu]
-    end
-
     def test_payment_type_validation
       check_error(:payment_type)
       check_ok(:payment_type, 'Przelew')
@@ -170,6 +159,18 @@ module PolishInvoicer
       check_dates_error('2014-02-16', '2014-01-31', 'A4')
       check_dates_ok('2014-02-15', '2014-01-31', 'A5')
       check_dates_ok('2014-03-15', '2014-02-15', 'A6')
+    end
+
+    def test_no_vat_reason_presence
+      @invoice.vat = 23
+      v = Validator.new(@invoice); v.valid?
+      assert_nil v.errors[:no_vat_reason]
+      @invoice.vat = -1
+      v = Validator.new(@invoice); v.valid?
+      assert v.errors[:no_vat_reason]
+      @invoice.no_vat_reason = 'reason'
+      v = Validator.new(@invoice); v.valid?
+      assert_nil v.errors[:no_vat_reason]
     end
   end
 end
