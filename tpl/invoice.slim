@@ -3,7 +3,9 @@ html
   head
     meta charset="utf-8"
     link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
-    title Slim Examples
+    title
+      = proforma ? 'Proforma' : 'Faktura'
+      = " nr #{number}"
     css:
       body, h1, h2, h3, h4, h5, h6 { font-family: verdana, helvetica, arial, sans-serif; }
 
@@ -16,7 +18,7 @@ html
       br
       br
 
-      h1
+      h2
         = proforma ? 'Proforma' : 'Faktura'
       h3
         = "Nr #{number}"
@@ -45,7 +47,7 @@ html
           | Data wystawienia:
           - unless proforma
             br
-            | Data sprzedaży:
+            | Wykonanie usługi:
         .col-xs-3
           = create_date
           - unless proforma
@@ -95,7 +97,7 @@ html
           - unless proforma
             td.text-center = vat
             td.text-center = vat_value
-          td.text-center = gross_value
+          th.text-center = gross_value
 
       br
       hr
