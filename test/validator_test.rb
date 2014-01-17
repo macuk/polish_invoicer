@@ -139,5 +139,37 @@ module PolishInvoicer
       check_ok(:seller_nip, '123')
       check_ok(:buyer_nip, '123')
     end
+
+    def check_dates_ok(create_date, trade_date, msg=nil)
+      @invoice.create_date = Date.parse(create_date)
+      @invoice.trade_date = Date.parse(trade_date)
+      v = Validator.new(@invoice); v.valid?
+      assert_nil v.errors[:create_date], msg
+    end
+
+    def check_dates_error(create_date, trade_date, msg=nil)
+      @invoice.create_date = Date.parse(create_date)
+      @invoice.trade_date = Date.parse(trade_date)
+      v = Validator.new(@invoice); v.valid?
+      assert v.errors[:create_date], msg
+    end
+
+    # data wystawienia max 30 dni przed wykonaniem usługi
+    def test_create_and_trade_date_correlation_before_trade
+      check_dates_ok('2014-01-01', '2014-01-01', 'B1')
+      check_dates_ok('2014-01-01', '2014-01-31', 'B2')
+      check_dates_error('2014-01-01', '2014-02-01', 'B3')
+      check_dates_ok('2014-01-02', '2014-02-01', 'B4')
+    end
+
+    # data wystawienie max 15 dnia następnego miesiąca po wykonaniu usługi
+    def test_create_and_trade_date_correlation_after_trade
+      check_dates_ok('2014-02-15', '2014-01-01', 'A1')
+      check_dates_error('2014-02-16', '2014-01-01', 'A2')
+      check_dates_error('2014-02-16', '2014-01-02', 'A3')
+      check_dates_error('2014-02-16', '2014-01-31', 'A4')
+      check_dates_ok('2014-02-15', '2014-01-31', 'A5')
+      check_dates_ok('2014-03-15', '2014-02-15', 'A6')
+    end
   end
 end
