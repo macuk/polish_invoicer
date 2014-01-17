@@ -15,6 +15,7 @@ module PolishInvoicer
       format_dates
       format_prices
       format_comments
+      format_vat
       @out
     end
 
@@ -53,6 +54,10 @@ module PolishInvoicer
 
       def format_comments
         @out[:comments] = [@invoice.comments].flatten.compact
+      end
+
+      def format_vat
+        @out[:vat] = Vat.to_s(@invoice.vat)
       end
   end
 end

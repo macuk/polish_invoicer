@@ -107,7 +107,7 @@ module PolishInvoicer
     def test_to_hash
       i = Invoice.new({price: 123.45, gross_price: false})
       h = i.to_hash
-      assert_equal 23, h[:vat] # default
+      assert h[:paid] # default
       assert_equal false, h[:gross_price] # params
       assert_equal '123,45', h[:net_value] # presenter
     end

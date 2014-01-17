@@ -40,5 +40,17 @@ module PolishInvoicer
       data = Presenter.new(@invoice).data
       assert_equal ['A', 'B'], data[:comments]
     end
+
+    def test_vat
+      @invoice.vat = 23
+      data = Presenter.new(@invoice).data
+      assert_equal '23%', data[:vat]
+      @invoice.vat = 0
+      data = Presenter.new(@invoice).data
+      assert_equal '0%', data[:vat]
+      @invoice.vat = -1
+      data = Presenter.new(@invoice).data
+      assert_equal 'zw.', data[:vat]
+    end
   end
 end
