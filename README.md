@@ -1,4 +1,4 @@
-# PolishInvoicer [![Code Climate](https://codeclimate.com/github/macuk/polish_invoicer.png)](https://codeclimate.com/github/macuk/polish_invoicer)
+# PolishInvoicer [![Code Climate](https://codeclimate.com/github/macuk/polish_invoicer.png)](https://codeclimate.com/github/macuk/polish_invoicer) [![Build Status](https://travis-ci.org/macuk/polish_invoicer.png?branch=master)](https://travis-ci.org/macuk/polish_invoicer)
 
 TODO: Write a gem description
 
