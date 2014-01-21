@@ -54,6 +54,8 @@ else
 end
 ```
 
+[Wygenerowana proforma](https://github.com/macuk/polish_invoicer/blob/master/doc/proforma.pdf?raw=true)
+
 ### Generowanie faktury
 
 ```ruby
@@ -62,6 +64,8 @@ invoice.paid = true
 invoice.save_to_html('/path/to/invoice.html')
 invoice.save_to_pdf('/path/to/invoice.pdf')
 ```
+
+[Wygenerowana faktura](https://github.com/macuk/polish_invoicer/blob/master/doc/invoice.pdf?raw=true)
 
 ## Opis wszystkich dostępnych parametrów
 
@@ -127,10 +131,10 @@ puts invoice.errors.inspect
 
 ## Dodatkowe metody
 
-* net_value     # obliczona wartość netto
-* vat_value     # obliczona kwota VAT
-* gross_value   # obliczona wartość brutto
-* to_hash       # hash przekazywany do szablonu faktury
+    net_value     # obliczona wartość netto
+    vat_value     # obliczona kwota VAT
+    gross_value   # obliczona wartość brutto
+    to_hash       # hash przekazywany do szablonu faktury
 
 ## Contributing
 
