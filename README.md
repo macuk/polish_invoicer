@@ -109,6 +109,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
     :logger,              # możliwość ustawienia loggera
                           # podczas użycia w aplikacji Rails
                           # logger ustawia się automatycznie
+    :wkhtmltopdf_path     # ścieżka do polecenia wkhtmltopdf
     :wkhtmltopdf_command  # komenda wywołania polecenia wkhtmltopdf
                           # bez podawania plików html i pdf
 
