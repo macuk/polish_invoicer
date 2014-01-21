@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = PolishInvoicer::VERSION
   spec.authors       = ["Piotr Macuk"]
   spec.email         = ["piotr@macuk.pl"]
-  spec.description   = %q{Creating polish invoices and proforms as PDF files}
-  spec.summary       = %q{Creating polish invoices and proforms as PDF files}
+  spec.description   = %q{Creates polish invoices and proforms as HTML or PDF files}
+  spec.summary       = %q{Creates polish invoices and proforms as HTML or PDF files}
   spec.homepage      = ""
   spec.license       = "MIT"
 
