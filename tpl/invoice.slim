@@ -38,7 +38,8 @@ html
           - buyer.each do |line|
             = line
             br
-          = "NIP: #{buyer_nip}"
+          - if buyer_nip
+            = "NIP: #{buyer_nip}"
 
       hr
 

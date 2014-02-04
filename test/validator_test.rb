@@ -124,7 +124,7 @@ module PolishInvoicer
 
     def test_seller_and_buyer_nip_presence
       check_error(:seller_nip)
-      check_error(:buyer_nip)
+      check_ok(:buyer_nip)
       check_ok(:seller_nip, '123')
       check_ok(:buyer_nip, '123')
     end

@@ -77,7 +77,6 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
     :seller,              # adres sprzedawcy (tablica stringów)
     :seller_nip,          # NIP sprzedawcy (string)
     :buyer,               # adres nabywcy (tablica stringów)
-    :buyer_nip,           # NIP nabywcy (string)
     :item_name,           # nazwa usługi (string)
     :price,               # cena w złotych (float)
     :payment_date,        # termin płatności (date)
@@ -98,6 +97,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
 
 ### Parametry dodatkowe
 
+    :buyer_nip,           # NIP nabywcy (string)
     :comments,            # uwagi (string lub tablica stringów)
     :pkwiu,               # numer PKWiU (string)
     :no_vat_reason,       # podstawa prawna zwolnienia z VAT (string)
