@@ -1,0 +1,137 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+    title
+      = proforma ? 'Proforma invoice' : 'Invoice'
+      = " nr #{number}"
+    css:
+      body, h1, h2, h3, h4, h5, h6 { font-family: verdana, helvetica, arial, sans-serif; }
+
+  body
+    .container
+
+      - if proforma
+        h5.text-center Proforma invoice is not used for accounts receivable / accounts payable and does not replace commercial invoice.
+
+      br
+      br
+
+      h2
+        = proforma ? 'Proforma invoice' : 'Invoice'
+      h3
+        = "Nr #{number}"
+
+      br
+      br
+
+      .row
+        .col-xs-6
+          h4 Seller
+          - seller.each do |line|
+            = line
+            br
+          = "VAT reg. no: #{seller_nip}"
+        .col-xs-6
+          h4 Customer
+          - buyer.each do |line|
+            = line
+            br
+          - if buyer_nip
+            = "VAT reg. no: #{buyer_nip}"
+
+      hr
+
+      .row
+        .col-xs-3
+          | Invoice date:
+          - unless proforma
+            br
+            | Item description:
+        .col-xs-3
+          = create_date
+          - unless proforma
+            br
+            = trade_date
+        .col-xs-3
+          | Payment due date:
+          br
+          | Method of payment:
+        .col-xs-3
+          = payment_date
+          br
+          = payment_type
+
+      br
+      br
+
+      table.table.table-condensed
+        tr
+          th width="40%" Description
+          - if pkwiu
+            th.text-center width="1%" PKWiU
+          th.text-center width="7%" Quantity
+          th.text-center width="7%" Price before VAT
+          th.text-center width="7%" Total value before VAT
+          - unless proforma
+            th.text-center width="1%" VAT rate
+            th.text-center width="7%" VAT value
+          th.text-center width="7%" Total value with VAT
+        tr
+          td = item_name
+          - if pkwiu
+            td.text-center = pkwiu
+          td.text-center
+            | 1&nbsp;usł.
+          td.text-center = net_value
+          td.text-center = net_value
+          - unless proforma
+            td.text-center = vat
+            td.text-center = vat_value
+          td.text-center = gross_value
+        tr
+          td colspan="#{pkwiu ? 3 : 2}"
+            | &nbsp;
+          th.text-center Total
+          td.text-center = net_value
+          - unless proforma
+            td.text-center = vat
+            td.text-center = vat_value
+          th.text-center = gross_value
+
+      br
+
+      .row
+        .col-xs-3
+          b Total payment:
+          br
+          | Amount paid:
+          br
+          | To pay:
+        .col-xs-3
+          b = "EUR #{gross_value}"
+          br
+          - if paid
+            = "EUR #{gross_value}"
+          - else
+            | EUR 0,00
+          br
+          - if paid
+            | EUR 0,00
+          - else
+            = "EUR #{gross_value}"
+        - if comments.any?
+          .col-xs-6
+            b Remarks:
+            br
+            - comments.each do |line|
+              = line
+              br
+
+      - if no_vat_reason
+        br
+        p
+          b Basis for VAT exemption:
+          br
+          = no_vat_reason
