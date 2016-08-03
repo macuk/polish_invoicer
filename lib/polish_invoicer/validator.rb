@@ -18,7 +18,6 @@ module PolishInvoicer
       check_price
       check_vat
       check_proforma
-      check_create_and_trade_date_correlation
       @errors.empty?
     end
 
@@ -96,29 +95,6 @@ module PolishInvoicer
       def check_blank(key, msg)
         value = @invoice.send(key)
         @errors[key] = msg if blank?(value)
-      end
-
-      def check_create_and_trade_date_correlation
-        return unless @invoice.create_date
-        return unless @invoice.trade_date
-        cd = @invoice.create_date
-        td = @invoice.trade_date
-        # data wystawienia max 30 dni przed wykonaniem usługi
-        if cd < td and (td - cd > 30)
-          msg = 'Data wystawienia nie może być wcześniejsza niż ' +
-                '30 dni przed wykonaniem usługi'
-          @errors[:create_date] = msg
-        end
-        # data wystawienie max 15 dnia następnego miesiąca po wykonaniu usługi
-        if cd > td
-          td_nm = td.next_month
-          cd_dl = Date.new(td_nm.year, td_nm.month, 15)
-          if cd > cd_dl
-            msg = 'Data wystawienia nie może być późniejsza niż ' +
-                  '15 dzień następnego miesiąca po wykonaniu usługi'
-            @errors[:create_date] = msg
-          end
-        end
       end
   end
 end
