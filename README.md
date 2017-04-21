@@ -28,7 +28,7 @@ Or install it yourself as:
 ```ruby
 require 'polish_invoicer'
 
-invoice = PolishInvoicer::Invoice.new({
+invoice = PolishInvoicer::Invoice.new(
   number: '1/2014',                       # numer faktury
   create_date: Date.today,                # data wystawienia
   trade_date: Date.today,                 # data wykonania usługi
@@ -45,7 +45,7 @@ invoice = PolishInvoicer::Invoice.new({
   payment_date: Date.today + 14,          # data płatności
   proforma: true,                         # znacznik proformy
   paid: false,                            # znacznik opłacenia usługi
-})
+)
 if invoice.valid?
   invoice.save_to_html('/path/to/proforma.html')
   invoice.save_to_pdf('/path/to/proforma.pdf')
