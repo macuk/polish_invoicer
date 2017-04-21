@@ -11,6 +11,8 @@ i = PolishInvoicer::Invoice.new(
 )
 
 i.save_to_pdf('/tmp/invoice-default.pdf')
+i.recipient = ['Szkoła Podstawowa Nr 1', 'ul. Zielona 10', '81-222 Gdynia', 'Nr ewid: SP1/2017']
+i.save_to_pdf('/tmp/invoice-with-recipient.pdf')
 i.paid = false
 i.save_to_pdf('/tmp/invoice-not-paid.pdf')
 i.proforma = true

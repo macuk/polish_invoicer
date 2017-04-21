@@ -8,6 +8,7 @@ module PolishInvoicer
       :seller_nip,        # NIP sprzedawcy (string)
       :buyer,             # adres nabywcy (tablica stringów)
       :buyer_nip,         # NIP nabywcy (string)
+      :recipient,         # odbiorca faktury (tablica stringów)
       :item_name,         # nazwa usługi (string)
       :price,             # cena w złotych (float)
       :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
@@ -20,7 +21,7 @@ module PolishInvoicer
       :footer,            # treść umieszczana w stopce faktury (string)
       :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
       :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
-    ]
+    ].freeze
 
     attr_accessor(*AVAILABLE_PARAMS)
     attr_accessor :template_path
@@ -32,7 +33,7 @@ module PolishInvoicer
         raise "Nierozpoznany parametr #{k}" unless AVAILABLE_PARAMS.include?(k)
         send("#{k}=", v)
       end
-      @validator = Validator.new(self)
+      @validator = PolishInvoicer::Validator.new(self)
     end
 
     def errors

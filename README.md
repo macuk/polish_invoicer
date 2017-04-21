@@ -3,9 +3,9 @@
 PolishInvoicer gem creates polish invoices and proforms as HTML or PDF files.
 Gem description will be in polish language because of specific case of this gem.
 
-Gem jest zgodny z nową [ustawą o podatku VAT](http://www.przepisy.gofin.pl/przepisy,3,32,32,670,55454,20140101,faktury.html), która weszła w życie z dniem 1 stycznia 2014.
+Gem jest zgodny z nową [ustawą o podatku VAT](http://www.przepisy.gofin.pl/przepisy,2,32,32,670,,,ustawa-z-dnia-11032004-r-o-podatku-od-towarow-i-uslug.html), która weszła w życie z dniem 1 stycznia 2017.
 
-[Krótkie podsumowanie zmian w wystawianiu faktur](http://www.jzk.pl/zmiany-2014).
+[Krótkie podsumowanie zmian w wystawianiu faktur](https://www.jzk.pl/2017).
 
 ## Installation
 
@@ -98,6 +98,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
 ### Parametry dodatkowe
 
     :buyer_nip,           # NIP nabywcy (string)
+    :recipient,           # odbiorca faktury (tablica stringów)    
     :comments,            # uwagi (string lub tablica stringów)
     :pkwiu,               # numer PKWiU (string)
     :no_vat_reason,       # podstawa prawna zwolnienia z VAT (string)
@@ -128,7 +129,7 @@ puts invoice.errors.inspect
     {
       :vat=>"Stawka VAT spoza listy dopuszczalnych wartości",
       :create_date=>"Data wystawienia nie może być późniejsza niż 15 dzień następnego miesiąca po wykonaniu usługi"
-      }
+    }
 
 ## Dodatkowe metody
 
