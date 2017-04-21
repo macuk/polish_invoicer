@@ -1,7 +1,6 @@
-# encoding: utf-8
 require 'polish_invoicer'
 
-i = PolishInvoicer::Invoice.new({
+i = PolishInvoicer::Invoice.new(
   number: '1/2014', create_date: Date.today, trade_date: Date.today,
   seller: ['Abaka sp. z o.o.', 'ul. Jasna 10', '10-234 Kraków'],
   buyer: ['Fabryki słodyczy S.A.', 'ul. Słodka 12/34', '12-345 Warszawa'],
@@ -9,7 +8,7 @@ i = PolishInvoicer::Invoice.new({
   price: 123.45, payment_date: Date.today,
   comments: 'Test uwag', footer: 'Stopka faktury plus tekst promocyjny',
   seller_nip: '123-456-78-90', buyer_nip: '987-654-32-10'
-})
+)
 
 i.save_to_pdf('/tmp/invoice-default.pdf')
 i.paid = false

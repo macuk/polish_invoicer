@@ -19,18 +19,19 @@ module PolishInvoicer
 
     # Potrzebne do obliczeń netto/vat/brutto
     def self.to_i(rate)
-      (rate != -1) ? rate : 0
+      rate != -1 ? rate : 0
     end
 
-    protected
-      def self.hash
-        h = {}
-        rates.each do |r|
-          name = "#{r}%"
-          name = 'zw.' if r == -1
-          h[name] = r
-        end
-        h
+    private
+
+    def self.hash
+      h = {}
+      rates.each do |r|
+        name = "#{r}%"
+        name = 'zw.' if r == -1
+        h[name] = r
       end
+      h
+    end
   end
 end

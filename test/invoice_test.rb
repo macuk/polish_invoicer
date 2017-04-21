@@ -1,20 +1,19 @@
-# encoding: utf-8
 require 'test_helper'
 
 module PolishInvoicer
-  class InvoiceTest < MiniTest::Unit::TestCase
+  class InvoiceTest < Minitest::Test
     def test_init
       i = Invoice.new
       assert i.is_a?(Invoice)
     end
 
     def test_set_available_param
-      i = Invoice.new({number: '1/2014'})
+      i = Invoice.new(number: '1/2014')
       assert_equal '1/2014', i.number
     end
 
     def test_set_unavailable_param
-      assert_raises(RuntimeError) { i = Invoice.new({test: 'abc'}) }
+      assert_raises(RuntimeError) { Invoice.new(test: 'abc') }
     end
 
     def test_validation_delegation
@@ -27,7 +26,7 @@ module PolishInvoicer
     end
 
     def test_net_value
-      i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
+      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
       assert_in_delta 123.45, i.net_value, 0.01
       i.gross_price = true
       assert_in_delta 100.37, i.net_value, 0.01
@@ -43,7 +42,7 @@ module PolishInvoicer
     end
 
     def test_vat_value
-      i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
+      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
       assert_in_delta 28.39, i.vat_value, 0.01
       i.gross_price = true
       assert_in_delta 23.08, i.vat_value, 0.01
@@ -54,7 +53,7 @@ module PolishInvoicer
     end
 
     def test_gross_value
-      i = Invoice.new({price: 123.45, gross_price: false, vat: 23})
+      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
       assert_in_delta 151.84, i.gross_value, 0.01
       i.gross_price = true
       assert_in_delta 123.45, i.gross_value, 0.01
@@ -92,7 +91,7 @@ module PolishInvoicer
       i = create_valid_invoice
       path = '/tmp/test.html'
       i.save_to_html(path)
-      assert File.exists?(path)
+      assert File.exist?(path)
       File.unlink(path)
     end
 
@@ -100,12 +99,12 @@ module PolishInvoicer
       i = create_valid_invoice
       path = '/tmp/test.pdf'
       i.save_to_pdf(path)
-      assert File.exists?(path)
+      assert File.exist?(path)
       File.unlink(path)
     end
 
     def test_to_hash
-      i = Invoice.new({price: 123.45, gross_price: false})
+      i = Invoice.new(price: 123.45, gross_price: false)
       h = i.to_hash
       assert h[:paid] # default
       assert_equal false, h[:gross_price] # params

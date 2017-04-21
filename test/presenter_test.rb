@@ -1,8 +1,7 @@
-# encoding: utf-8
 require 'test_helper'
 
 module PolishInvoicer
-  class PresenterTest < MiniTest::Unit::TestCase
+  class PresenterTest < Minitest::Test
     require 'ostruct'
 
     def setup
@@ -36,9 +35,9 @@ module PolishInvoicer
       @invoice.comments = 'Test'
       data = Presenter.new(@invoice).data
       assert_equal ['Test'], data[:comments]
-      @invoice.comments = ['A', 'B']
+      @invoice.comments = %w(A B)
       data = Presenter.new(@invoice).data
-      assert_equal ['A', 'B'], data[:comments]
+      assert_equal %w(A B), data[:comments]
     end
 
     def test_vat

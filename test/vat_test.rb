@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module PolishInvoicer
-  class VatTest < MiniTest::Unit::TestCase
+  class VatTest < Minitest::Test
     def test_valid
       assert Vat.valid?(23)
       assert Vat.valid?(0)

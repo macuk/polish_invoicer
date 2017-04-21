@@ -22,15 +22,16 @@ module PolishInvoicer
       @writer.save_to_pdf(path)
     end
 
-    protected
-      def create_writer
-        @writer = Slim2pdf::Writer.new(template_path)
-        @writer.wkhtmltopdf_path = wkhtmltopdf_path
-        @writer.wkhtmltopdf_command = wkhtmltopdf_command
-        @writer.logger = logger
-        data = @invoice.to_hash
-        @writer.data = data
-        @writer.footer_text = data[:footer]
-      end
+    private
+
+    def create_writer
+      @writer = Slim2pdf::Writer.new(template_path)
+      @writer.wkhtmltopdf_path = wkhtmltopdf_path
+      @writer.wkhtmltopdf_command = wkhtmltopdf_command
+      @writer.logger = logger
+      data = @invoice.to_hash
+      @writer.data = data
+      @writer.footer_text = data[:footer]
+    end
   end
 end

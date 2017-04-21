@@ -1,21 +1,21 @@
 require 'test_helper'
 
 module PolishInvoicer
-  class ValidatorTest < MiniTest::Unit::TestCase
+  class ValidatorTest < Minitest::Test
     require 'ostruct'
 
     def setup
       @invoice = OpenStruct.new
     end
 
-    def check_error(field, value=nil)
+    def check_error(field, value = nil)
       @invoice.send("#{field}=", value)
       v = Validator.new(@invoice)
       v.valid?
       assert v.errors[field]
     end
 
-    def check_ok(field, value=nil)
+    def check_ok(field, value = nil)
       @invoice.send("#{field}=", value)
       v = Validator.new(@invoice)
       v.valid?
@@ -129,22 +129,26 @@ module PolishInvoicer
       check_ok(:buyer_nip, '123')
     end
 
-    def check_dates_ok(create_date, trade_date, msg=nil)
+    def check_dates_ok(create_date, trade_date, msg = nil)
       @invoice.create_date = Date.parse(create_date)
       @invoice.trade_date = Date.parse(trade_date)
-      v = Validator.new(@invoice); v.valid?
+      v = Validator.new(@invoice)
+      v.valid?
       assert_nil v.errors[:create_date], msg
     end
 
     def test_no_vat_reason_presence
       @invoice.vat = 23
-      v = Validator.new(@invoice); v.valid?
+      v = Validator.new(@invoice)
+      v.valid?
       assert_nil v.errors[:no_vat_reason]
       @invoice.vat = -1
-      v = Validator.new(@invoice); v.valid?
+      v = Validator.new(@invoice)
+      v.valid?
       assert v.errors[:no_vat_reason]
       @invoice.no_vat_reason = 'reason'
-      v = Validator.new(@invoice); v.valid?
+      v = Validator.new(@invoice)
+      v.valid?
       assert_nil v.errors[:no_vat_reason]
     end
   end

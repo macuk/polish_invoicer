@@ -1,14 +1,13 @@
-# encoding: utf-8
 require 'test_helper'
 
 module PolishInvoicer
-  class WriterTest < MiniTest::Unit::TestCase
+  class WriterTest < Minitest::Test
     def test_save_to_html
       invoice = create_valid_invoice
       writer = Writer.new(invoice)
       path = '/tmp/test.html'
       writer.save_to_html(path)
-      assert File.exists?(path)
+      assert File.exist?(path)
       File.unlink(path)
     end
 
@@ -17,7 +16,7 @@ module PolishInvoicer
       writer = Writer.new(invoice)
       path = '/tmp/test.pdf'
       writer.save_to_pdf(path)
-      assert File.exists?(path)
+      assert File.exist?(path)
       File.unlink(path)
     end
 

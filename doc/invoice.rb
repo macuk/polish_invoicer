@@ -1,7 +1,6 @@
-# encoding: utf-8
 require 'polish_invoicer'
 
-invoice = PolishInvoicer::Invoice.new({
+invoice = PolishInvoicer::Invoice.new(
   number: '1/2014',                       # numer faktury
   create_date: Date.today,                # data wystawienia
   trade_date: Date.today,                 # data wykonania usługi
@@ -16,6 +15,6 @@ invoice = PolishInvoicer::Invoice.new({
   item_name: 'Usługi programistyczne',    # nazwa usługi
   price: 3500,                            # cena (domyślnie brutto)
   payment_date: Date.today + 14,          # data płatności
-})
+)
 invoice.save_to_html('/tmp/invoice.html')
 invoice.save_to_pdf('/tmp/invoice.pdf')
