@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Faktura nr #{number}"
+    title = "Proforma nr #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,7 +16,9 @@ html
   body
     .container
 
-      h3 = "Faktura nr #{number}"
+      h6.text-center Proforma nie jest dowodem księgowym i nie należy jej księgować.
+
+      h3 = "Proforma nr #{number}"
 
       .row
         .col-xs-6
@@ -44,12 +46,8 @@ html
       .row
         .col-xs-3
           | Data wystawienia:
-          br
-          | Wykonanie usługi:
         .col-xs-3
           = create_date
-          br
-          = trade_date
         .col-xs-3
           | Termin płatności:
           br
@@ -70,8 +68,6 @@ html
           th.text-center width="7%" Ilość
           th.text-center width="7%" Cena netto
           th.text-center width="7%" Wart. netto
-          th.text-center width="1%" VAT
-          th.text-center width="7%" Kwota VAT
           th.text-center width="7%" Wart. brutto
         tr
           td = item_name
@@ -81,16 +77,12 @@ html
             | 1&nbsp;usł.
           td.text-center = net_value
           td.text-center = net_value
-          td.text-center = vat
-          td.text-center = vat_value
           td.text-center = gross_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
           th.text-center Razem
           td.text-center = net_value
-          td.text-center = vat
-          td.text-center = vat_value
           th.text-center = gross_value
 
       br
@@ -121,10 +113,3 @@ html
             - comments.each do |line|
               = line
               br
-
-      - if no_vat_reason
-        br
-        p
-          b Podstawa zwolnienia z podatku VAT:
-          br
-          = no_vat_reason

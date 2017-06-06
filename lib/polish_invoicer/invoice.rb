@@ -21,6 +21,7 @@ module PolishInvoicer
       :footer,            # treść umieszczana w stopce faktury (string)
       :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
       :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
+      :foreign_buyer,     # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
     ].freeze
 
     attr_accessor(*AVAILABLE_PARAMS)
@@ -84,6 +85,7 @@ module PolishInvoicer
       @payment_type = 'Przelew'
       @paid = true
       @proforma = false
+      @foreign_buyer = false
     end
 
     def validate!

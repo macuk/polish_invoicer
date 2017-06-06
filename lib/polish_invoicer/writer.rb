@@ -1,12 +1,10 @@
 module PolishInvoicer
   class Writer
-    attr_accessor :invoice, :template_path
+    attr_accessor :invoice
     attr_accessor :logger, :wkhtmltopdf_path, :wkhtmltopdf_command
 
     def initialize(invoice)
       @invoice = invoice
-      default_template_path = File.expand_path('../../../tpl/invoice.slim', __FILE__)
-      @template_path = @invoice.template_path || default_template_path
       @logger = @invoice.logger
       @wkhtmltopdf_path = @invoice.wkhtmltopdf_path
       @wkhtmltopdf_command = @invoice.wkhtmltopdf_command
@@ -20,6 +18,13 @@ module PolishInvoicer
     def save_to_pdf(path)
       create_writer
       @writer.save_to_pdf(path)
+    end
+
+    def template_path
+      tpl = 'invoice.slim'
+      tpl = 'invoice-en.slim' if invoice.foreign_buyer
+      tpl = 'proforma.slim' if invoice.proforma
+      invoice.template_path || File.expand_path("../../../tpl/#{tpl}", __FILE__)
     end
 
     private
