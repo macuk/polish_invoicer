@@ -94,6 +94,8 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
                           # wartość domyślna: false
     :payment_type,        # rodzaj płatności (string)
                           # wartość domyślna: 'Przelew'
+    :foreign_buyer,       # nabywcą jest firma spoza Polski
+                          # wartość domyślna: false (boolean)
 
 ### Parametry dodatkowe
 
