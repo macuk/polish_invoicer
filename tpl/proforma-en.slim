@@ -44,6 +44,8 @@ html
             = "VAT no: #{buyer_nip}"
           - if recipient
             h4 Odbiorca
+            h6.small
+              em Recipient
             - recipient.each do |line|
               = line
               br
