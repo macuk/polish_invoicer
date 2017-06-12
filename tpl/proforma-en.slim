@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Faktura nr #{number}"
+    title = "Proforma nr #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,9 +16,13 @@ html
   body
     .container
 
-      h3 = "Faktura nr #{number}"
+      h6.text-center Proforma nie jest dowodem księgowym i nie należy jej księgować.
+      h6.text-center.small
+        em Proforma is not a bookkeeping document and is not for booking.
+
+      h3 = "Proforma nr #{number}"
       h6.small
-        em = "Invoice number #{number}"
+        em = "Proforma number #{number}"
 
       .row
         .col-xs-6
@@ -40,8 +44,6 @@ html
             = "VAT no: #{buyer_nip}"
           - if recipient
             h4 Odbiorca
-            h6.small
-              em Recipient
             - recipient.each do |line|
               = line
               br
@@ -64,11 +66,7 @@ html
           = payment_date
       .row
         .col-xs-3
-          | Wykonanie usługi:
-          .small
-            em Date of service:
         .col-xs-3
-          = trade_date
         .col-xs-3
           | Sposób zapłaty:
           .small
@@ -101,6 +99,10 @@ html
             | Wart. netto
             .small
               em Net amount
+          th.text-center width="7%"
+            | Wart. brutto
+            .small
+              em Gross amount
         tr
           td = item_name
           - if pkwiu
@@ -111,6 +113,7 @@ html
               em 1&nbsp;service
           td.text-center = net_value
           td.text-center = net_value
+          td.text-center = gross_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
@@ -119,6 +122,7 @@ html
             .small
               em Total
           td.text-center = net_value
+          th.text-center = gross_value
 
       br
 
@@ -160,10 +164,3 @@ html
             - comments.each do |line|
               = line
               br
-
-      br
-      br
-
-      b Do rozliczenia podatku VAT zobowiązany jest nabywca usługi (odwrotne obciążenie)
-      .small
-        em Levy of VAT reverse charged to recipient of service (reverse charge)

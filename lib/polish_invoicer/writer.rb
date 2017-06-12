@@ -21,9 +21,11 @@ module PolishInvoicer
     end
 
     def template_path
-      tpl = 'invoice.slim'
-      tpl = 'invoice-en.slim' if invoice.foreign_buyer
-      tpl = 'proforma.slim' if invoice.proforma
+      tpl = if invoice.proforma
+              invoice.foreign_buyer ? 'proforma-en.slim' : 'proforma.slim'
+            else
+              invoice.foreign_buyer ? 'invoice-en.slim' : 'invoice.slim'
+            end
       invoice.template_path || File.expand_path("../../../tpl/#{tpl}", __FILE__)
     end
 
