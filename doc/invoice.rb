@@ -15,6 +15,10 @@ invoice = PolishInvoicer::Invoice.new(
   item_name: 'Usługi programistyczne',    # nazwa usługi
   price: 3500,                            # cena (domyślnie brutto)
   payment_date: Date.today + 14,          # data płatności
+  # gross_price: false,
+  # proforma: true,
+  # paid: false,
+  # foreign_buyer: true
 )
 invoice.save_to_html('/tmp/invoice.html')
 invoice.save_to_pdf('/tmp/invoice.pdf')

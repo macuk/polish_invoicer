@@ -115,7 +115,7 @@ html
               em 1&nbsp;service
           td.text-center = net_value
           td.text-center = net_value
-          td.text-center = gross_value
+          td.text-center = net_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
@@ -124,7 +124,7 @@ html
             .small
               em Total
           td.text-center = net_value
-          th.text-center = gross_value
+          th.text-center = net_value
 
       br
 
@@ -136,7 +136,7 @@ html
               .small
                 em Total to pay:
             .col-xs-6
-              b = "#{gross_value} PLN"
+              b = "#{net_value} PLN"
           .row
             .col-xs-6
               | Zapłacono:
@@ -144,7 +144,7 @@ html
                 em Amount paid:
             .col-xs-6
               - if paid
-                = "#{gross_value} PLN"
+                = "#{net_value} PLN"
               - else
                 | 0,00 PLN
           .row
@@ -156,7 +156,7 @@ html
               - if paid
                 | 0,00 PLN
               - else
-                = "#{gross_value} PLN"
+                = "#{net_value} PLN"
 
         .col-xs-6
           - if comments.any?

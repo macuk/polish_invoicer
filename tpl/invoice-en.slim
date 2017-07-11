@@ -130,7 +130,7 @@ html
               .small
                 em Total to pay:
             .col-xs-6
-              b = "#{gross_value} PLN"
+              b = "#{net_value} PLN"
           .row
             .col-xs-6
               | Zapłacono:
@@ -138,7 +138,7 @@ html
                 em Amount paid:
             .col-xs-6
               - if paid
-                = "#{gross_value} PLN"
+                = "#{net_value} PLN"
               - else
                 | 0,00 PLN
           .row
@@ -150,7 +150,7 @@ html
               - if paid
                 | 0,00 PLN
               - else
-                = "#{gross_value} PLN"
+                = "#{net_value} PLN"
 
         .col-xs-6
           - if comments.any?
