@@ -13,12 +13,13 @@ invoice = PolishInvoicer::Invoice.new(
           '10-043 Olsztyn'],
   buyer_nip: '987-654-32-10',             # NIP nabywcy
   item_name: 'Usługi programistyczne',    # nazwa usługi
-  price: 3500,                            # cena (domyślnie brutto)
+  price: 100,                             # cena (domyślnie brutto)
   payment_date: Date.today + 14,          # data płatności
-  # gross_price: false,
+  gross_price: false,
   # proforma: true,
   # paid: false,
-  # foreign_buyer: true
+  foreign_buyer: true,
+  reverse_charge: true
 )
 invoice.save_to_html('/tmp/invoice.html')
 invoice.save_to_pdf('/tmp/invoice.pdf')

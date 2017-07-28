@@ -59,6 +59,9 @@ module PolishInvoicer
       unless [true, false].include?(@invoice.foreign_buyer)
         @errors[:foreign_buyer] = 'Znacznik zagranicznego nabywcy musi być podany jako boolean'
       end
+      unless [true, false].include?(@invoice.reverse_charge)
+        @errors[:reverse_charge] = 'Znacznik odwrotnego obciążenia VAT musi być podany jako boolean'
+      end
     end
 
     def check_dates

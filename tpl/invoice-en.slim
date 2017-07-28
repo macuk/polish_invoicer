@@ -101,6 +101,19 @@ html
             | Wart. netto
             .small
               em Net amount
+          - unless reverse_charge
+            th.text-center width="1%"
+              | VAT
+              .small
+                em VAT
+            th.text-center width="7%"
+              | Kwota VAT
+              .small
+                em VAT amount
+            th.text-center width="7%"
+              | Wart. brutto
+              .small
+                em Gross amount
         tr
           td = item_name
           - if pkwiu
@@ -111,6 +124,10 @@ html
               em 1&nbsp;service
           td.text-center = net_value
           td.text-center = net_value
+          - unless reverse_charge
+            td.text-center = vat
+            td.text-center = vat_value
+            td.text-center = gross_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
@@ -119,6 +136,10 @@ html
             .small
               em Total
           td.text-center = net_value
+          - unless reverse_charge
+            td.text-center = vat
+            td.text-center = vat_value
+            th.text-center = gross_value
 
       br
 
@@ -130,7 +151,7 @@ html
               .small
                 em Total to pay:
             .col-xs-6
-              b = "#{net_value} PLN"
+              b = "#{reverse_charge == true ? net_value : gross_value} PLN"
           .row
             .col-xs-6
               | Zapłacono:
@@ -138,7 +159,7 @@ html
                 em Amount paid:
             .col-xs-6
               - if paid
-                = "#{net_value} PLN"
+                = "#{reverse_charge == true ? net_value : gross_value} PLN"
               - else
                 | 0,00 PLN
           .row
@@ -150,7 +171,7 @@ html
               - if paid
                 | 0,00 PLN
               - else
-                = "#{net_value} PLN"
+                = "#{reverse_charge == true ? net_value : gross_value} PLN"
 
         .col-xs-6
           - if comments.any?
@@ -161,9 +182,10 @@ html
               = line
               br
 
-      br
-      br
+      - if reverse_charge
+        br
+        br
 
-      b Do rozliczenia podatku VAT zobowiązany jest nabywca usługi (odwrotne obciążenie)
-      .small
-        em Levy of VAT reverse charged to recipient of service (reverse charge)
+        b Do rozliczenia podatku VAT zobowiązany jest nabywca usługi (odwrotne obciążenie)
+        .small
+          em Levy of VAT reverse charged to recipient of service (reverse charge)

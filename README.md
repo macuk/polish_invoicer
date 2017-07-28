@@ -96,6 +96,8 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
                           # wartość domyślna: 'Przelew'
     :foreign_buyer,       # nabywcą jest firma spoza Polski
                           # wartość domyślna: false (boolean)
+    :reverse_charge       # faktura z odwrotnym obciążeniem VAT
+                          # wartość domyślna: false (boolean)
 
 ### Parametry dodatkowe
 
