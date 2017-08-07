@@ -38,7 +38,7 @@ html
             br
           - if buyer_nip
             = "VAT no: #{buyer_nip}"
-          - if recipient
+          - if recipient.any?
             h4 Odbiorca
             h6.small
               em Recipient

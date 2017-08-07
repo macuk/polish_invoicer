@@ -34,7 +34,7 @@ html
             br
           - if buyer_nip
             = "NIP: #{buyer_nip}"
-          - if recipient
+          - if recipient.any?
             h4 Odbiorca
             - recipient.each do |line|
               = line
