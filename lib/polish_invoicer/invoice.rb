@@ -88,6 +88,7 @@ module PolishInvoicer
       @proforma = false
       @foreign_buyer = false
       @reverse_charge = false
+      @recipient = []
     end
 
     def validate!
