@@ -32,7 +32,7 @@ html
           - buyer.each do |line|
             = line
             br
-          - if buyer_nip
+          - if buyer_nip.to_s.strip != ''
             = "NIP: #{buyer_nip}"
           - if recipient.any?
             h4 Odbiorca
