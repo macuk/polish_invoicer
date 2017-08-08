@@ -122,7 +122,7 @@ html
               = line
               br
 
-      - if no_vat_reason
+      - if no_vat_reason.to_s.strip != ''
         br
         p
           b Podstawa zwolnienia z podatku VAT:
