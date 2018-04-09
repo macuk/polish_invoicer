@@ -1,11 +1,8 @@
 # PolishInvoicer [![Code Climate](https://codeclimate.com/github/macuk/polish_invoicer.png)](https://codeclimate.com/github/macuk/polish_invoicer) [![Build Status](https://travis-ci.org/macuk/polish_invoicer.png?branch=master)](https://travis-ci.org/macuk/polish_invoicer)
 
-PolishInvoicer gem creates polish invoices and proforms as HTML or PDF files.
-Gem description will be in polish language because of specific case of this gem.
+PolishInvoicer gem creates Polish invoices and proforms in HTML and PDF formats.
 
-Gem jest zgodny z nową [ustawą o podatku VAT](http://www.przepisy.gofin.pl/przepisy,2,32,32,670,,,ustawa-z-dnia-11032004-r-o-podatku-od-towarow-i-uslug.html), która weszła w życie z dniem 1 stycznia 2017.
-
-[Krótkie podsumowanie zmian w wystawianiu faktur](https://www.jzk.pl/2017).
+Description is in Polish because of a specific case of this gem.
 
 ## Installation
 
@@ -130,10 +127,7 @@ invoice.valid?
 puts invoice.errors.inspect
 ```
 
-    {
-      :vat=>"Stawka VAT spoza listy dopuszczalnych wartości",
-      :create_date=>"Data wystawienia nie może być późniejsza niż 15 dzień następnego miesiąca po wykonaniu usługi"
-    }
+    { :vat=>"Stawka VAT spoza listy dopuszczalnych wartości" }
 
 ## Dodatkowe metody
 
