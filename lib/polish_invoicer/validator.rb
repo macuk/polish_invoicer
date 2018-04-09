@@ -99,7 +99,7 @@ module PolishInvoicer
       return if @errors[:create_date]
       return if @errors[:payment_date]
       return if @invoice.create_date <= @invoice.payment_date
-      @errors[:payment_date] = 'Termin płatności musi być wcześniejszy niż data wystawienia'
+      @errors[:payment_date] = 'Termin płatności nie może być wcześniejszy niż data wystawienia'
     end
 
     def blank?(value)
