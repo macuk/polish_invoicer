@@ -35,9 +35,9 @@ module PolishInvoicer
       @invoice.comments = 'Test'
       data = Presenter.new(@invoice).data
       assert_equal ['Test'], data[:comments]
-      @invoice.comments = %w(A B)
+      @invoice.comments = %w[A B]
       data = Presenter.new(@invoice).data
-      assert_equal %w(A B), data[:comments]
+      assert_equal %w[A B], data[:comments]
     end
 
     def test_vat

@@ -31,13 +31,13 @@ module PolishInvoicer
     end
 
     def copy_additional_params
-      %w(net_value vat_value gross_value).each do |field|
+      %w[net_value vat_value gross_value].each do |field|
         @out[field.to_sym] = @invoice.send(field)
       end
     end
 
     def format_dates
-      %w(trade_date create_date payment_date).each do |field|
+      %w[trade_date create_date payment_date].each do |field|
         v = @invoice.send(field)
         next unless v
         @out[field.to_sym] = v.strftime '%d.%m.%Y'
@@ -45,7 +45,7 @@ module PolishInvoicer
     end
 
     def format_prices
-      %w(net_value vat_value gross_value).each do |field|
+      %w[net_value vat_value gross_value].each do |field|
         v = @invoice.send(field)
         next unless v
         @out[field.to_sym] = sprintf('%02.2f', v).tr('.', ',')

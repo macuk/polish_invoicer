@@ -71,20 +71,20 @@ module PolishInvoicer
     end
 
     def check_price
-      unless @invoice.price.is_a?(Numeric)
-        @errors[:price] = 'Cena musi być liczbą'
-      else
+      if @invoice.price.is_a?(Numeric)
         @errors[:price] = 'Cena musi być liczbą dodatnią' unless @invoice.price > 0
+      else
+        @errors[:price] = 'Cena musi być liczbą'
       end
     end
 
     def check_vat
-      unless Vat.valid?(@invoice.vat)
-        @errors[:vat] = 'Stawka VAT spoza listy dopuszczalnych wartości'
-      else
+      if Vat.valid?(@invoice.vat)
         if Vat.zw?(@invoice.vat) && blank?(@invoice.no_vat_reason)
           @errors[:no_vat_reason] = 'Konieczne jest podanie podstawy prawnej zwolnienia z podatku VAT'
         end
+      else
+        @errors[:vat] = 'Stawka VAT spoza listy dopuszczalnych wartości'
       end
     end
 

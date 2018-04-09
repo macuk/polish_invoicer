@@ -22,8 +22,6 @@ module PolishInvoicer
       rate != -1 ? rate : 0
     end
 
-    private
-
     def self.hash
       h = {}
       rates.each do |r|

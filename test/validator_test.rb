@@ -8,20 +8,6 @@ module PolishInvoicer
       @invoice = OpenStruct.new
     end
 
-    def check_error(field, value = nil)
-      @invoice.send("#{field}=", value)
-      v = Validator.new(@invoice)
-      v.valid?
-      assert v.errors[field]
-    end
-
-    def check_ok(field, value = nil)
-      @invoice.send("#{field}=", value)
-      v = Validator.new(@invoice)
-      v.valid?
-      assert_nil v.errors[field]
-    end
-
     def test_number_validation
       check_error(:number)
       check_ok(:number, '1/2014')
@@ -110,7 +96,7 @@ module PolishInvoicer
       check_ok(:proforma, false)
     end
 
-    def test_proforma_could_not_be_paid
+    def test_proforma_not_paid
       @invoice.paid = true
       @invoice.proforma = true
       v = Validator.new(@invoice)
@@ -122,19 +108,11 @@ module PolishInvoicer
       assert_nil v.errors[:paid]
     end
 
-    def test_seller_and_buyer_nip_presence
+    def test_nip_presence
       check_error(:seller_nip)
       check_ok(:buyer_nip)
       check_ok(:seller_nip, '123')
       check_ok(:buyer_nip, '123')
-    end
-
-    def check_dates_ok(create_date, trade_date, msg = nil)
-      @invoice.create_date = Date.parse(create_date)
-      @invoice.trade_date = Date.parse(trade_date)
-      v = Validator.new(@invoice)
-      v.valid?
-      assert_nil v.errors[:create_date], msg
     end
 
     def test_no_vat_reason_presence
@@ -150,6 +128,22 @@ module PolishInvoicer
       v = Validator.new(@invoice)
       v.valid?
       assert_nil v.errors[:no_vat_reason]
+    end
+
+    private
+
+    def check_error(field, value = nil)
+      @invoice.send("#{field}=", value)
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[field]
+    end
+
+    def check_ok(field, value = nil)
+      @invoice.send("#{field}=", value)
+      v = Validator.new(@invoice)
+      v.valid?
+      assert_nil v.errors[field]
     end
   end
 end
