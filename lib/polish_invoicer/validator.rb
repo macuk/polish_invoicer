@@ -17,6 +17,7 @@ module PolishInvoicer
       check_price
       check_vat
       check_proforma
+      check_create_and_payment_date
       @errors.empty?
     end
 
@@ -92,6 +93,13 @@ module PolishInvoicer
       return unless @invoice.proforma
       return unless @invoice.paid
       @errors[:paid] = 'Proforma nie może być opłacona'
+    end
+
+    def check_create_and_payment_date
+      return if @errors[:create_date]
+      return if @errors[:payment_date]
+      return if @invoice.create_date <= @invoice.payment_date
+      @errors[:payment_date] = 'Termin płatności musi być wcześniejszy niż data wystawienia'
     end
 
     def blank?(value)

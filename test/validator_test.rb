@@ -130,6 +130,18 @@ module PolishInvoicer
       assert_nil v.errors[:no_vat_reason]
     end
 
+    def test_create_and_payment_date
+      @invoice.create_date = Date.parse('2018-04-10')
+      @invoice.payment_date = Date.parse('2018-04-01')
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[:payment_date]
+      @invoice.payment_date = Date.parse('2018-04-17')
+      v = Validator.new(@invoice)
+      v.valid?
+      assert_nil v.errors[:payment_date]
+    end
+
     private
 
     def check_error(field, value = nil)
