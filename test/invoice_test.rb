@@ -26,26 +26,41 @@ module PolishInvoicer
     end
 
     def test_net_value
-      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
+      i = Invoice.new(price: 123.45, gross_price: false)
+      i.vat = 23
       assert_in_delta 123.45, i.net_value, 0.01
+
       i.gross_price = true
+      i.vat = 23
       assert_in_delta 100.37, i.net_value, 0.01
+      i.vat = 5.5
+      assert_in_delta 117.01, i.net_value, 0.01
       i.vat = 0
       assert_in_delta 123.45, i.net_value, 0.01
       i.vat = -1
       assert_in_delta 123.45, i.net_value, 0.01
+
       i.gross_price = false
       i.vat = 0
       assert_in_delta 123.45, i.net_value, 0.01
       i.vat = -1
       assert_in_delta 123.45, i.net_value, 0.01
+      i.vat = 5.5
+      assert_in_delta 123.45, i.net_value, 0.01
     end
 
     def test_vat_value
-      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
+      i = Invoice.new(price: 123.45, gross_price: false)
+      i.vat = 23
       assert_in_delta 28.39, i.vat_value, 0.01
+      i.vat = 5.5
+      assert_in_delta 6.79, i.vat_value, 0.01
+
       i.gross_price = true
+      i.vat = 23
       assert_in_delta 23.08, i.vat_value, 0.01
+      i.vat = 5.5
+      assert_in_delta 6.44, i.vat_value, 0.01
       i.vat = 0
       assert_equal 0.00, i.vat_value
       i.vat = -1
@@ -53,15 +68,23 @@ module PolishInvoicer
     end
 
     def test_gross_value
-      i = Invoice.new(price: 123.45, gross_price: false, vat: 23)
+      i = Invoice.new(price: 123.45, gross_price: false)
+      i.vat = 23
       assert_in_delta 151.84, i.gross_value, 0.01
+
       i.gross_price = true
+      i.vat = 23
+      assert_in_delta 123.45, i.gross_value, 0.01
+      i.vat = 5.5
       assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = 0
       assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = -1
       assert_in_delta 123.45, i.gross_value, 0.01
+
       i.gross_price = false
+      i.vat = 5.5
+      assert_in_delta 130.24, i.gross_value, 0.01
       i.vat = 0
       assert_in_delta 123.45, i.gross_value, 0.01
       i.vat = -1
