@@ -103,17 +103,17 @@ html
           br
           | Zostało do zapłaty:
         .col-xs-3
-          b = "#{gross_value} PLN"
+          b = "#{gross_value} #{currency}"
           br
           - if paid
-            = "#{gross_value} PLN"
+            = "#{gross_value} #{currency}"
           - else
-            | 0,00 PLN
+            = "0,00 #{currency}"
           br
           - if paid
-            | 0,00 PLN
+            = "0,00 #{currency}"
           - else
-            = "#{gross_value} PLN"
+            = "#{gross_value} #{currency}"
         - if comments.any?
           .col-xs-6
             b Uwagi:

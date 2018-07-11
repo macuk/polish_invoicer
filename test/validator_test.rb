@@ -142,6 +142,21 @@ module PolishInvoicer
       assert_nil v.errors[:payment_date]
     end
 
+    def test_currency
+      @invoice.currency = nil
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[:currency]
+      @invoice.currency = 'XYZ'
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[:currency]
+      @invoice.currency = 'EUR'
+      v = Validator.new(@invoice)
+      v.valid?
+      refute v.errors[:currency]
+    end
+
     private
 
     def check_error(field, value = nil)

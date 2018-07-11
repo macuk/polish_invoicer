@@ -22,7 +22,8 @@ module PolishInvoicer
       :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
       :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
       :foreign_buyer,     # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
-      :reverse_charge     # faktura z odwrotnym obciążeniem VAT
+      :reverse_charge,    # faktura z odwrotnym obciążeniem VAT
+      :currency           # waluta rozliczeniowa, domyślnie: PLN (string)
     ].freeze
 
     attr_accessor(*AVAILABLE_PARAMS)
@@ -88,6 +89,7 @@ module PolishInvoicer
       @proforma = false
       @foreign_buyer = false
       @reverse_charge = false
+      @currency = 'PLN'
       @recipient = []
     end
 

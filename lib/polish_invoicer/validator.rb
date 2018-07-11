@@ -18,6 +18,7 @@ module PolishInvoicer
       check_vat
       check_proforma
       check_create_and_payment_date
+      check_currency
       @errors.empty?
     end
 
@@ -40,6 +41,7 @@ module PolishInvoicer
     def check_not_nil
       @errors[:gross_price] = 'Konieczne jest ustawienie znacznika rodzaju ceny (netto/brutto)' if @invoice.gross_price.nil?
       @errors[:paid] = 'Konieczne jest ustawienie znacznika opłacenia faktury' if @invoice.paid.nil?
+      @errors[:currency] = 'Konieczne jest ustawienie waluty rozliczeniowej' if @invoice.currency.nil?
     end
 
     def check_arrays
@@ -100,6 +102,12 @@ module PolishInvoicer
       return if @errors[:payment_date]
       return if @invoice.create_date <= @invoice.payment_date
       @errors[:payment_date] = 'Termin płatności nie może być wcześniejszy niż data wystawienia'
+    end
+
+    def check_currency
+      return if @errors[:currency]
+      return if %w[PLN EUR USD GBP].include?(@invoice.currency)
+      @errors[:currency] = 'Nieznana waluta'
     end
 
     def blank?(value)

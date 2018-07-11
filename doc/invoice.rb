@@ -19,7 +19,8 @@ invoice = PolishInvoicer::Invoice.new(
   # proforma: true,
   # paid: false,
   foreign_buyer: true,
-  reverse_charge: true
+  reverse_charge: true,
+  currency: 'USD'
 )
 invoice.save_to_html('/tmp/invoice.html')
 invoice.save_to_pdf('/tmp/invoice.pdf')

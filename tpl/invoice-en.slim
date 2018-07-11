@@ -151,7 +151,7 @@ html
               .small
                 em Total to pay:
             .col-xs-6
-              b = "#{reverse_charge == true ? net_value : gross_value} PLN"
+              b = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
           .row
             .col-xs-6
               | Zapłacono:
@@ -159,9 +159,9 @@ html
                 em Amount paid:
             .col-xs-6
               - if paid
-                = "#{reverse_charge == true ? net_value : gross_value} PLN"
+                = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
               - else
-                | 0,00 PLN
+                = "0,00 #{currency}"
           .row
             .col-xs-6
               | Zostało do zapłaty:
@@ -169,9 +169,9 @@ html
                 em Left to pay:
             .col-xs-6
               - if paid
-                | 0,00 PLN
+                = "0,00 #{currency}"
               - else
-                = "#{reverse_charge == true ? net_value : gross_value} PLN"
+                = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
 
         .col-xs-6
           - if comments.any?
