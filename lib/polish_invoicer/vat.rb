@@ -1,35 +1,27 @@
 module PolishInvoicer
   class Vat
     def self.rates
-      [23, 8, 5, 0, -1] # -1 oznacza zwolniony z VAT
+      (0..27)
     end
 
     def self.valid?(rate)
+      return true if zw?(rate)
       rates.include?(rate)
     end
 
     # Czy stawka VAT to "zwolniony"?
     def self.zw?(rate)
-      rate == -1
+      rate == -1 # -1 oznacza zwolniony z VAT
     end
 
     def self.to_s(rate)
-      hash.invert[rate]
+      return 'zw.' if zw?(rate)
+      "#{rate}%"
     end
 
     # Potrzebne do obliczeń netto/vat/brutto
     def self.to_i(rate)
-      rate != -1 ? rate : 0
-    end
-
-    def self.hash
-      h = {}
-      rates.each do |r|
-        name = "#{r}%"
-        name = 'zw.' if r == -1
-        h[name] = r
-      end
-      h
+      zw?(rate) ? 0 : rate
     end
   end
 end
