@@ -42,6 +42,7 @@ module PolishInvoicer
       @errors[:gross_price] = 'Konieczne jest ustawienie znacznika rodzaju ceny (netto/brutto)' if @invoice.gross_price.nil?
       @errors[:paid] = 'Konieczne jest ustawienie znacznika opłacenia faktury' if @invoice.paid.nil?
       @errors[:currency] = 'Konieczne jest ustawienie waluty rozliczeniowej' if @invoice.currency.nil?
+      @errors[:exchange_rate] = 'Konieczne jest podanie kursu waluty rozliczeniowej' if @invoice.exchange_rate.nil?
     end
 
     def check_arrays

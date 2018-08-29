@@ -102,6 +102,9 @@ html
           | Zapłacono:
           br
           | Zostało do zapłaty:
+          - if currency != 'PLN'
+            br
+            | Kurs waluty:
         .col-xs-3
           b = "#{gross_value} #{currency}"
           br
@@ -114,6 +117,9 @@ html
             = "0,00 #{currency}"
           - else
             = "#{gross_value} #{currency}"
+          - if currency != 'PLN'
+            br
+            = exchange_rate
         - if comments.any?
           .col-xs-6
             b Uwagi:

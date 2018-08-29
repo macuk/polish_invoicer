@@ -23,7 +23,8 @@ module PolishInvoicer
       :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
       :foreign_buyer,     # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
       :reverse_charge,    # faktura z odwrotnym obciążeniem VAT
-      :currency           # waluta rozliczeniowa, domyślnie: PLN (string)
+      :currency,          # waluta rozliczeniowa, domyślnie: PLN (string)
+      :exchange_rate      # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
     ].freeze
 
     attr_accessor(*AVAILABLE_PARAMS)
@@ -90,6 +91,7 @@ module PolishInvoicer
       @foreign_buyer = false
       @reverse_charge = false
       @currency = 'PLN'
+      @exchange_rate = 1.0000
       @recipient = []
     end
 

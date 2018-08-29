@@ -97,6 +97,8 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
                           # wartość domyślna: false
     :currency             # waluta rozliczeniowa (string)
                           # wartość domyślna: PLN                      
+    :exchange_rate        # kurs waluty rozliczeniowej (float)
+                          # wartość domyślna: 1.0000
 
 ### Parametry dodatkowe
 

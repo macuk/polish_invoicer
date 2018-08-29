@@ -157,6 +157,17 @@ module PolishInvoicer
       refute v.errors[:currency]
     end
 
+    def test_exchange_rate
+      @invoice.exchange_rate = nil
+      v = Validator.new(@invoice)
+      v.valid?
+      assert v.errors[:exchange_rate]
+      @invoice.exchange_rate = 4,1234
+      v = Validator.new(@invoice)
+      v.valid?
+      refute v.errors[:exchange_rate]
+    end
+
     private
 
     def check_error(field, value = nil)

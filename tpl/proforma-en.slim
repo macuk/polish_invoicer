@@ -157,6 +157,14 @@ html
                 = "0,00 #{currency}"
               - else
                 = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
+          - if currency != 'PLN'
+            .row
+              .col-xs-6
+                | Kurs waluty:
+                .small
+                  em Exchange rate:
+              .col-xs-6
+                = exchange_rate
 
         .col-xs-6
           - if comments.any?

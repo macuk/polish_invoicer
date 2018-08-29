@@ -20,7 +20,9 @@ invoice = PolishInvoicer::Invoice.new(
   # paid: false,
   foreign_buyer: true,
   reverse_charge: true,
-  currency: 'USD'
+  currency: 'EUR',
+  exchange_rate: 3.5432,
+  comments: 'To jest komentarz w ważnej sprawie do dokumentu'
 )
 invoice.save_to_html('/tmp/invoice.html')
 invoice.save_to_pdf('/tmp/invoice.pdf')
