@@ -180,6 +180,14 @@ html
                   em Exchange rate:
               .col-xs-6
                 = exchange_rate
+            - unless reverse_charge
+              .row
+                .col-xs-6
+                  | Podatek w PLN:
+                  .small
+                    em Exchanged tax amount:
+                .col-xs-6
+                  = "#{exchanged_tax} PLN"
 
         .col-xs-6
           - if comments.any?

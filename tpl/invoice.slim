@@ -105,6 +105,8 @@ html
           - if currency != 'PLN'
             br
             | Kurs waluty:
+            br
+            | Podatek w PLN:
         .col-xs-3
           b = "#{gross_value} #{currency}"
           br
@@ -120,6 +122,8 @@ html
           - if currency != 'PLN'
             br
             = exchange_rate
+            br
+            = "#{exchanged_tax} PLN"
         - if comments.any?
           .col-xs-6
             b Uwagi:

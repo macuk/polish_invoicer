@@ -80,6 +80,10 @@ module PolishInvoicer
       Presenter.new(self).data
     end
 
+    def exchanged_tax
+      (vat_value * exchange_rate)
+    end
+
     private
 
     def set_defaults
