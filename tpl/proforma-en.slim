@@ -115,7 +115,7 @@ html
               em 1&nbsp;service
           td.text-center = net_value
           td.text-center = net_value
-          td.text-center = (reverse_charge == true ? net_value : gross_value)
+          td.text-center = total_to_pay_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
@@ -124,7 +124,7 @@ html
             .small
               em Total
           td.text-center = net_value
-          th.text-center = (reverse_charge == true ? net_value : gross_value)
+          th.text-center = total_to_pay_value
 
       br
 
@@ -136,27 +136,19 @@ html
               .small
                 em Total to pay:
             .col-xs-6
-              b = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
+              b = "#{total_to_pay_value} #{currency}"
           .row
             .col-xs-6
               | Zapłacono:
               .small
                 em Amount paid:
-            .col-xs-6
-              - if paid
-                = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
-              - else
-                = "0,00 #{currency}"
+            .col-xs-6 = "#{paid_value} #{currency}"
           .row
             .col-xs-6
               | Zostało do zapłaty:
               .small
                 em Left to pay:
-            .col-xs-6
-              - if paid
-                = "0,00 #{currency}"
-              - else
-                = "#{reverse_charge == true ? net_value : gross_value} #{currency}"
+            .col-xs-6 = "#{to_pay_value} #{currency}"
 
         .col-xs-6
           - if comments.any?

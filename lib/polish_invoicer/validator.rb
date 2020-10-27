@@ -15,6 +15,7 @@ module PolishInvoicer
       check_arrays
       check_booleans
       check_price
+      check_price_paid
       check_vat
       check_proforma
       check_create_and_payment_date
@@ -79,6 +80,16 @@ module PolishInvoicer
         @errors[:price] = 'Cena musi być liczbą dodatnią' unless @invoice.price > 0
       else
         @errors[:price] = 'Cena musi być liczbą'
+      end
+    end
+
+    def check_price_paid
+      return if @invoice.price.nil?
+      if @invoice.price_paid.is_a?(Numeric)
+        @errors[:price_paid] = 'Kwota zapłacona musi być liczbą dodatnią' unless @invoice.price_paid >= 0
+        @errors[:price_paid] = 'Kwota zapłacona musi być mniejsza lub równa cenie' unless @invoice.price_paid <= @invoice.price
+      else
+        @errors[:price_paid] = 'Kwota zapłacona musi być liczbą'
       end
     end
 

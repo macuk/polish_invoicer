@@ -77,13 +77,13 @@ html
             | 1&nbsp;usł.
           td.text-center = net_value
           td.text-center = net_value
-          td.text-center = gross_value
+          td.text-center = total_to_pay_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
           th.text-center Razem
           td.text-center = net_value
-          th.text-center = gross_value
+          th.text-center = total_to_pay_value
 
       br
 
@@ -95,17 +95,11 @@ html
           br
           | Zostało do zapłaty:
         .col-xs-3
-          b = "#{gross_value} #{currency}"
+          b = "#{total_to_pay_value} #{currency}"
           br
-          - if paid
-            = "#{gross_value} #{currency}"
-          - else
-            = "0,00 #{currency}"
+          = "#{paid_value} #{currency}"
           br
-          - if paid
-            = "0,00 #{currency}"
-          - else
-            = "#{gross_value} #{currency}"
+          = "#{to_pay_value} #{currency}"
         - if comments.any?
           .col-xs-6
             b Uwagi:

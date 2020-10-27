@@ -54,6 +54,16 @@ module PolishInvoicer
       check_ok(:price, 19.99)
     end
 
+    def test_price_paid_validation
+      @invoice.price = 200
+      check_error(:price_paid)
+      check_error(:price_paid, 'test')
+      check_error(:price_paid, '100')
+      check_error(:price_paid, -10)
+      check_error(:price_paid, 300)
+      check_ok(:price_paid, 19.99)
+    end
+
     def test_gross_price_validation
       check_error(:gross_price)
       check_error(:gross_price, 'test')

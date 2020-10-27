@@ -83,7 +83,7 @@ html
           td.text-center = net_value
           td.text-center = vat
           td.text-center = vat_value
-          td.text-center = gross_value
+          td.text-center = total_to_pay_value
         tr
           td colspan="#{pkwiu ? 3 : 2}"
             | &nbsp;
@@ -91,7 +91,7 @@ html
           td.text-center = net_value
           td.text-center = vat
           td.text-center = vat_value
-          th.text-center = gross_value
+          th.text-center = total_to_pay_value
 
       br
 
@@ -108,17 +108,11 @@ html
             br
             | Podatek w PLN:
         .col-xs-3
-          b = "#{gross_value} #{currency}"
+          b = "#{total_to_pay_value} #{currency}"
           br
-          - if paid
-            = "#{gross_value} #{currency}"
-          - else
-            = "0,00 #{currency}"
+          = "#{paid_value} #{currency}"
           br
-          - if paid
-            = "0,00 #{currency}"
-          - else
-            = "#{gross_value} #{currency}"
+          = "#{to_pay_value} #{currency}"
           - if currency != 'PLN'
             br
             = exchange_rate

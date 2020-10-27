@@ -45,7 +45,7 @@ module PolishInvoicer
     end
 
     def format_prices
-      %w[net_value vat_value gross_value exchanged_tax].each do |field|
+      %w[net_value vat_value gross_value exchanged_tax total_to_pay_value paid_value to_pay_value].each do |field|
         v = @invoice.send(field)
         next unless v
         @out[field.to_sym] = sprintf('%02.2f', v).tr('.', ',')

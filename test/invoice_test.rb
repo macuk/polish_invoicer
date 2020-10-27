@@ -133,5 +133,62 @@ module PolishInvoicer
       assert_equal false, h[:gross_price] # params
       assert_equal '123,45', h[:net_value] # presenter
     end
+
+    def test_total_to_pay_value
+      assert_equal 123, Invoice.new(price: 123).paid_value
+      assert_equal 100, Invoice.new(price: 123, reverse_charge: true).paid_value
+    end
+
+    def test_paid_value
+      assert_equal 123, Invoice.new(price: 123).paid_value
+      assert_equal 123, Invoice.new(price: 123, price_paid: 100).paid_value
+      assert_equal 100, Invoice.new(price: 123, paid: false, price_paid: 100).paid_value
+      assert_equal 100, Invoice.new(price: 123, gross_price: false, paid: false, price_paid: 100).paid_value
+      assert_equal 100, Invoice.new(price: 123, reverse_charge: true, paid: false, price_paid: 100).paid_value
+    end
+
+    def test_to_pay_value
+      assert_equal 0, Invoice.new(price: 123).to_pay_value
+      assert_equal 0, Invoice.new(price: 123, price_paid: 100).to_pay_value
+      assert_equal 23, Invoice.new(price: 123, paid: false, price_paid: 100).to_pay_value
+      assert_equal 23, Invoice.new(price: 100, gross_price: false, paid: false, price_paid: 100).to_pay_value
+      assert_equal 50, Invoice.new(price: 123, reverse_charge: true, paid: false, price_paid: 50).to_pay_value
+    end
+
+    def test_gross_and_net_price
+      gross_invoice = Invoice.new(price: 123, price_paid: 60, paid: false)
+      assert_equal 100, gross_invoice.net_value
+      assert_equal 23, gross_invoice.vat_value
+      assert_equal 123, gross_invoice.gross_value
+      assert_equal 123, gross_invoice.total_to_pay_value
+      assert_equal 60, gross_invoice.paid_value
+      assert_equal 63, gross_invoice.to_pay_value
+
+      net_invoice = Invoice.new(price: 100, price_paid: 60, paid: false, gross_price: false)
+      assert_equal 100, net_invoice.net_value
+      assert_equal 23, net_invoice.vat_value
+      assert_equal 123, net_invoice.gross_value
+      assert_equal 123, net_invoice.total_to_pay_value
+      assert_equal 60, net_invoice.paid_value
+      assert_equal 63, net_invoice.to_pay_value
+    end
+
+    def test_reverse_charge
+      gross_invoice = Invoice.new(price: 123, price_paid: 60, paid: false, reverse_charge: true)
+      assert_equal 100, gross_invoice.net_value
+      assert_equal 23, gross_invoice.vat_value
+      assert_equal 123, gross_invoice.gross_value
+      assert_equal 100, gross_invoice.total_to_pay_value
+      assert_equal 60, gross_invoice.paid_value
+      assert_equal 40, gross_invoice.to_pay_value
+
+      net_invoice = Invoice.new(price: 100, price_paid: 60, paid: false, gross_price: false, reverse_charge: true)
+      assert_equal 100, net_invoice.net_value
+      assert_equal 23, net_invoice.vat_value
+      assert_equal 123, net_invoice.gross_value
+      assert_equal 100, net_invoice.total_to_pay_value
+      assert_equal 60, net_invoice.paid_value
+      assert_equal 40, net_invoice.to_pay_value
+    end
   end
 end
