@@ -87,8 +87,6 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
                           # wartość domyślna: 23
     :paid,                # znacznik opłacenia usługi (boolean)
                           # wartość domyślna: true, czyli opłacona
-    :price_paid,          # kwota częściowego opłacenia faktury w złotych (float)
-                          # wartość domyślna: 0.0
     :proforma,            # znacznik faktury pro-forma (boolean)
                           # wartość domyślna: false
     :payment_type,        # rodzaj płatności (string)
@@ -110,6 +108,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
     :pkwiu,               # numer PKWiU (string)
     :no_vat_reason,       # podstawa prawna zwolnienia z VAT (string)
     :footer,              # treść umieszczana w stopce faktury (string)
+    :price_paid,          # kwota częściowego opłacenia faktury w złotych (float)
 
 ### Parametry systemowe
 

@@ -84,7 +84,9 @@ module PolishInvoicer
     end
 
     def check_price_paid
+      return if @invoice.price_paid.nil?
       return if @invoice.price.nil?
+
       if @invoice.price_paid.is_a?(Numeric)
         @errors[:price_paid] = 'Kwota zapłacona musi być liczbą dodatnią' unless @invoice.price_paid >= 0
         @errors[:price_paid] = 'Kwota zapłacona musi być mniejsza lub równa cenie' unless @invoice.price_paid <= @invoice.price

@@ -56,7 +56,7 @@ module PolishInvoicer
 
     def test_price_paid_validation
       @invoice.price = 200
-      check_error(:price_paid)
+      check_ok(:price_paid)
       check_error(:price_paid, 'test')
       check_error(:price_paid, '100')
       check_error(:price_paid, -10)

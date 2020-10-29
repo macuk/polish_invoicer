@@ -11,7 +11,7 @@ module PolishInvoicer
       :recipient,         # odbiorca faktury (tablica stringów)
       :item_name,         # nazwa usługi (string)
       :price,             # cena w złotych (float)
-      :price_paid,        # kwota częściowego opłacenia faktury w złotych, domyślnie: 0.0 (float)
+      :price_paid,        # kwota częściowego opłacenia faktury w złotych
       :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
       :vat,               # stawka vat, domyślnie: 23 (integer)
       :pkwiu,             # numer PKWiU (string)
@@ -90,11 +90,11 @@ module PolishInvoicer
     end
 
     def paid_value
-      paid ? total_to_pay_value : price_paid
+      paid ? total_to_pay_value : price_paid.to_f
     end
 
     def to_pay_value
-      paid ? 0 : (total_to_pay_value - price_paid)
+      paid ? 0 : (total_to_pay_value - price_paid.to_f)
     end
 
     private
@@ -104,7 +104,6 @@ module PolishInvoicer
       @vat = 23
       @payment_type = 'Przelew'
       @paid = true
-      @price_paid = 0.0
       @proforma = false
       @foreign_buyer = false
       @reverse_charge = false

@@ -142,6 +142,7 @@ module PolishInvoicer
     def test_paid_value
       assert_equal 123, Invoice.new(price: 123).paid_value
       assert_equal 123, Invoice.new(price: 123, price_paid: 100).paid_value
+      assert_equal 0, Invoice.new(price: 123, paid: false).paid_value
       assert_equal 100, Invoice.new(price: 123, paid: false, price_paid: 100).paid_value
       assert_equal 100, Invoice.new(price: 123, gross_price: false, paid: false, price_paid: 100).paid_value
       assert_equal 100, Invoice.new(price: 123, reverse_charge: true, paid: false, price_paid: 100).paid_value
@@ -150,6 +151,7 @@ module PolishInvoicer
     def test_to_pay_value
       assert_equal 0, Invoice.new(price: 123).to_pay_value
       assert_equal 0, Invoice.new(price: 123, price_paid: 100).to_pay_value
+      assert_equal 123, Invoice.new(price: 123, paid: false).to_pay_value
       assert_equal 23, Invoice.new(price: 123, paid: false, price_paid: 100).to_pay_value
       assert_equal 23, Invoice.new(price: 100, gross_price: false, paid: false, price_paid: 100).to_pay_value
       assert_equal 50, Invoice.new(price: 123, reverse_charge: true, paid: false, price_paid: 50).to_pay_value
