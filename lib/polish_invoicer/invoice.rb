@@ -23,6 +23,10 @@ module PolishInvoicer
       :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
       :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
       :foreign_buyer,     # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
+      :lang,              # język na fakturze, domyślnie: zależny od ustawienia foreign_buyer
+                          # foreign_buyer = false => lang = 'pl'
+                          # foreign_buyer = true => lang = 'pl_en'
+                          # możliwe wartości: pl | pl_en | en
       :reverse_charge,    # faktura z odwrotnym obciążeniem VAT
       :currency,          # waluta rozliczeniowa, domyślnie: PLN (string)
       :exchange_rate      # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
@@ -95,6 +99,14 @@ module PolishInvoicer
 
     def to_pay_value
       paid ? 0 : (total_to_pay_value - price_paid.to_f)
+    end
+
+    def template_lang
+      lang || (foreign_buyer ? 'pl_en' : 'pl')
+    end
+
+    def template_file
+      proforma ? "proforma-#{template_lang}.slim" : "invoice-#{template_lang}.slim"
     end
 
     private

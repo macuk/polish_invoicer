@@ -192,5 +192,38 @@ module PolishInvoicer
       assert_equal 60, net_invoice.paid_value
       assert_equal 40, net_invoice.to_pay_value
     end
+
+    def test_template_lang
+      i = Invoice.new
+      assert_equal 'pl', i.template_lang
+      i.foreign_buyer = true
+      assert_equal 'pl_en', i.template_lang
+      i.lang = 'en'
+      assert_equal 'en', i.template_lang
+    end
+
+    def test_template_file
+      i = Invoice.new(proforma: true)
+      assert_equal 'proforma-pl.slim', i.template_file
+      i.foreign_buyer = true
+      assert_equal 'proforma-pl_en.slim', i.template_file
+      i.lang = 'en'
+      assert_equal 'proforma-en.slim', i.template_file
+      i.lang = 'pl'
+      assert_equal 'proforma-pl.slim', i.template_file
+      i.lang = 'pl_en'
+      assert_equal 'proforma-pl_en.slim', i.template_file
+
+      i = Invoice.new
+      assert_equal 'invoice-pl.slim', i.template_file
+      i.foreign_buyer = true
+      assert_equal 'invoice-pl_en.slim', i.template_file
+      i.lang = 'en'
+      assert_equal 'invoice-en.slim', i.template_file
+      i.lang = 'pl'
+      assert_equal 'invoice-pl.slim', i.template_file
+      i.lang = 'pl_en'
+      assert_equal 'invoice-pl_en.slim', i.template_file
+    end
   end
 end

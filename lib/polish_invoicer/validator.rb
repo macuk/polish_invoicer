@@ -20,6 +20,7 @@ module PolishInvoicer
       check_proforma
       check_create_and_payment_date
       check_currency
+      check_lang
       @errors.empty?
     end
 
@@ -122,6 +123,13 @@ module PolishInvoicer
       return if @errors[:currency]
       return if %w[PLN EUR USD GBP].include?(@invoice.currency)
       @errors[:currency] = 'Nieznana waluta'
+    end
+
+    def check_lang
+      return if blank?(@invoice.lang)
+      return if %w[pl pl_en en].include?(@invoice.lang)
+
+      @errors[:lang] = 'Nieznany język'
     end
 
     def blank?(value)

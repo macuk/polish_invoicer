@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Invoice number #{number}"
+    title = "Proforma nr #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,24 +16,36 @@ html
   body
     .container
 
-      h3 = "Invoice number #{number}"
+      h6.text-center Proforma nie jest dowodem księgowym i nie należy jej księgować.
+      h6.text-center.small
+        em Proforma is not a bookkeeping document and is not for booking.
+
+      h3 = "Proforma nr #{number}"
+      h6.small
+        em = "Proforma number #{number}"
 
       .row
         .col-xs-6
-          h4 Seller
+          h4 Sprzedawca
+          h6.small
+            em Seller
           - seller.each do |line|
             = line
             br
           = "VAT no: #{seller_nip}"
         .col-xs-6
-          h4 Buyer
+          h4 Nabywca
+          h6.small
+            em Buyer
           - buyer.each do |line|
             = line
             br
           - if buyer_nip.to_s.strip != ''
             = "VAT no: #{buyer_nip}"
           - if recipient.any?
-            h4 Recipient
+            h4 Odbiorca
+            h6.small
+              em Recipient
             - recipient.each do |line|
               = line
               br
@@ -42,50 +54,77 @@ html
       br
 
       .row
-        .col-xs-3 Date of issue:
-        .col-xs-3 = create_date
-        .col-xs-3 Payment deadline:
-        .col-xs-3 = payment_date
+        .col-xs-3
+          | Data wystawienia:
+          .small
+            em Date of issue:
+        .col-xs-3
+          = create_date
+        .col-xs-3
+          | Termin płatności:
+          .small
+            em Payment deadline:
+        .col-xs-3
+          = payment_date
       .row
-        .col-xs-3 Date of sale:
-        .col-xs-3 = trade_date
-        .col-xs-3 Method of payment:
-        .col-xs-3 = payment_type.to_s.downcase == 'przelew' ? 'bank transfer' : 'cash'
+        .col-xs-3
+        .col-xs-3
+        .col-xs-3
+          | Sposób zapłaty:
+          .small
+            em Method of payment:
+        .col-xs-3
+          = payment_type
+          .small
+            em = payment_type.to_s.downcase == 'przelew' ? 'bank transfer' : 'cash'
 
       br
       br
 
       table.table.table-condensed
         tr
-          th width="40%" Service
+          th width="40%"
+            | Usługa
+            .small
+              em Service
           - if pkwiu
             th.text-center width="1%" PKWiU
-          th.text-center width="7%" Qty
-          th.text-center width="7%" Unit price
-          th.text-center width="7%" Net amount
-          - unless reverse_charge
-            th.text-center width="1%" VAT
-            th.text-center width="7%" VAT amount
-            th.text-center width="7%" Gross amount
+          th.text-center width="7%"
+            | Ilość
+            .small
+              em Qty
+          th.text-center width="7%"
+            | Cena netto
+            .small
+              em Unit price
+          th.text-center width="7%"
+            | Wart. netto
+            .small
+              em Net amount
+          th.text-center width="7%"
+            | Wart. brutto
+            .small
+              em Gross amount
         tr
           td = item_name
           - if pkwiu
             td.text-center = pkwiu
-          td.text-center 1&nbsp;service
+          td.text-center
+            | 1&nbsp;usł.
+            .small
+              em 1&nbsp;service
           td.text-center = net_value
           td.text-center = net_value
-          - unless reverse_charge
-            td.text-center = vat
-            td.text-center = vat_value
-            td.text-center = total_to_pay_value
+          td.text-center = total_to_pay_value
         tr
-          td colspan="#{pkwiu ? 3 : 2}" &nbsp;
-          th.text-center Total
+          td colspan="#{pkwiu ? 3 : 2}"
+            | &nbsp;
+          th.text-center
+            | Razem
+            .small
+              em Total
           td.text-center = net_value
-          - unless reverse_charge
-            td.text-center = vat
-            td.text-center = vat_value
-            th.text-center = total_to_pay_value
+          th.text-center = total_to_pay_value
 
       br
 
@@ -93,24 +132,29 @@ html
         .col-xs-6
           .row
             .col-xs-6
-              b Total to pay:
+              b Razem do zapłaty:
+              .small
+                em Total to pay:
             .col-xs-6
               b = "#{total_to_pay_value} #{currency}"
           .row
-            .col-xs-6 Amount paid:
+            .col-xs-6
+              | Zapłacono:
+              .small
+                em Amount paid:
             .col-xs-6 = "#{paid_value} #{currency}"
           .row
-            .col-xs-6 Left to pay:
+            .col-xs-6
+              | Zostało do zapłaty:
+              .small
+                em Left to pay:
             .col-xs-6 = "#{to_pay_value} #{currency}"
+
         .col-xs-6
           - if comments.any?
-            b Remarks:
+            b Uwagi:
+            .small
+              em Remarks:
             - comments.each do |line|
               = line
               br
-
-      - if reverse_charge
-        br
-        br
-
-        b Levy of VAT reverse charged to recipient of service (reverse charge)
