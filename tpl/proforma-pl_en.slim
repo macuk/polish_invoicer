@@ -32,7 +32,7 @@ html
           - seller.each do |line|
             = line
             br
-          = "VAT no: #{seller_nip}"
+          = "TAX ID: #{seller_nip}"
         .col-xs-6
           h4 Nabywca
           h6.small
@@ -41,7 +41,7 @@ html
             = line
             br
           - if buyer_nip.to_s.strip != ''
-            = "VAT no: #{buyer_nip}"
+            = "TAX ID: #{buyer_nip}"
           - if recipient.any?
             h4 Odbiorca
             h6.small
