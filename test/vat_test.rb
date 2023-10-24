@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module PolishInvoicer
@@ -31,7 +33,7 @@ module PolishInvoicer
 
     def test_to_i
       assert_equal 0, Vat.to_i(-1)
-      assert_equal 5.5, Vat.to_i(5.5)
+      assert_in_delta(5.5, Vat.to_i(5.5))
       assert_equal 20, Vat.to_i(20)
     end
   end

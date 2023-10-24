@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PolishInvoicer
   class Invoice
     AVAILABLE_PARAMS = [
@@ -32,14 +34,13 @@ module PolishInvoicer
       :exchange_rate      # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
     ].freeze
 
-    attr_accessor(*AVAILABLE_PARAMS)
-    attr_accessor :template_path
-    attr_accessor :logger, :wkhtmltopdf_path, :wkhtmltopdf_command
+    attr_accessor(*AVAILABLE_PARAMS, :template_path, :logger, :wkhtmltopdf_path, :wkhtmltopdf_command)
 
     def initialize(params = {})
       set_defaults
       params.each do |k, v|
         raise "Nierozpoznany parametr #{k}" unless AVAILABLE_PARAMS.include?(k)
+
         send("#{k}=", v)
       end
       @validator = PolishInvoicer::Validator.new(self)
@@ -56,7 +57,8 @@ module PolishInvoicer
     # cena/wartość netto
     def net_value
       return price unless gross_price
-      price / (1 + Vat.to_i(vat) / 100.0)
+
+      price / (1 + (Vat.to_i(vat) / 100.0))
     end
 
     # kwota VAT
@@ -67,7 +69,8 @@ module PolishInvoicer
     # cena/wartość brutto
     def gross_value
       return price if gross_price
-      price + price * Vat.to_i(vat) / 100.0
+
+      price + (price * Vat.to_i(vat) / 100.0)
     end
 
     def save_to_html(path)
@@ -126,6 +129,7 @@ module PolishInvoicer
 
     def validate!
       return if valid?
+
       error_messages = errors.map { |k, v| "#{k}: #{v}" }.join(', ')
       raise "Parametry do wystawienia faktury są nieprawidłowe: #{error_messages}"
     end

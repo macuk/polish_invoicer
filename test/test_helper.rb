@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start do
   add_filter '/test/'
 end
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'polish_invoicer'
 require 'minitest/autorun'
 
@@ -14,6 +16,7 @@ def create_valid_invoice
     seller_nip: '123-123-22-33', buyer_nip: '554-333-22-11',
     item_name: 'Title', price: 123.45, payment_date: Date.today
   )
-  assert invoice.valid?
+
+  assert_predicate invoice, :valid?
   invoice
 end

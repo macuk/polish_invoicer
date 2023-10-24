@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PolishInvoicer
   class Presenter
     attr_accessor :invoice
@@ -40,6 +42,7 @@ module PolishInvoicer
       %w[trade_date create_date payment_date].each do |field|
         v = @invoice.send(field)
         next unless v
+
         @out[field.to_sym] = v.strftime '%d.%m.%Y'
       end
     end
@@ -48,7 +51,8 @@ module PolishInvoicer
       %w[net_value vat_value gross_value exchanged_tax total_to_pay_value paid_value to_pay_value].each do |field|
         v = @invoice.send(field)
         next unless v
-        @out[field.to_sym] = sprintf('%02.2f', v).tr('.', ',')
+
+        @out[field.to_sym] = format('%02.2f', v).tr('.', ',')
       end
     end
 

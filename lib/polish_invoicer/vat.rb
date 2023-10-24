@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PolishInvoicer
   class Vat
     def self.rates
@@ -6,6 +8,7 @@ module PolishInvoicer
 
     def self.valid?(rate)
       return true if zw?(rate)
+
       rates.include?(rate)
     end
 
@@ -16,6 +19,7 @@ module PolishInvoicer
 
     def self.to_s(rate)
       return 'zw.' if zw?(rate)
+
       "#{rate}%"
     end
 

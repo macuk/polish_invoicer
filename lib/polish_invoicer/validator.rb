@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PolishInvoicer
   class Validator
     attr_reader :errors
@@ -41,7 +43,10 @@ module PolishInvoicer
     end
 
     def check_not_nil
-      @errors[:gross_price] = 'Konieczne jest ustawienie znacznika rodzaju ceny (netto/brutto)' if @invoice.gross_price.nil?
+      if @invoice.gross_price.nil?
+        @errors[:gross_price] =
+          'Konieczne jest ustawienie znacznika rodzaju ceny (netto/brutto)'
+      end
       @errors[:paid] = 'Konieczne jest ustawienie znacznika opłacenia faktury' if @invoice.paid.nil?
       @errors[:currency] = 'Konieczne jest ustawienie waluty rozliczeniowej' if @invoice.currency.nil?
       @errors[:exchange_rate] = 'Konieczne jest podanie kursu waluty rozliczeniowej' if @invoice.exchange_rate.nil?
@@ -56,18 +61,17 @@ module PolishInvoicer
       unless [true, false].include?(@invoice.gross_price)
         @errors[:gross_price] = 'Znacznik rodzaju ceny musi być podany jako boolean'
       end
-      unless [true, false].include?(@invoice.paid)
-        @errors[:paid] = 'Znacznik opłacenia faktury musi być podany jako boolean'
-      end
+      @errors[:paid] = 'Znacznik opłacenia faktury musi być podany jako boolean' unless [true,
+                                                                                         false].include?(@invoice.paid)
       unless [true, false].include?(@invoice.proforma)
         @errors[:proforma] = 'Znacznik faktury pro-forma musi być podany jako boolean'
       end
       unless [true, false].include?(@invoice.foreign_buyer)
         @errors[:foreign_buyer] = 'Znacznik zagranicznego nabywcy musi być podany jako boolean'
       end
-      unless [true, false].include?(@invoice.reverse_charge)
-        @errors[:reverse_charge] = 'Znacznik odwrotnego obciążenia VAT musi być podany jako boolean'
-      end
+      return if [true, false].include?(@invoice.reverse_charge)
+
+      @errors[:reverse_charge] = 'Znacznik odwrotnego obciążenia VAT musi być podany jako boolean'
     end
 
     def check_dates
@@ -78,7 +82,7 @@ module PolishInvoicer
 
     def check_price
       if @invoice.price.is_a?(Numeric)
-        @errors[:price] = 'Cena musi być liczbą dodatnią' unless @invoice.price > 0
+        @errors[:price] = 'Cena musi być liczbą dodatnią' unless @invoice.price.positive?
       else
         @errors[:price] = 'Cena musi być liczbą'
       end
@@ -90,7 +94,10 @@ module PolishInvoicer
 
       if @invoice.price_paid.is_a?(Numeric)
         @errors[:price_paid] = 'Kwota zapłacona musi być liczbą dodatnią' unless @invoice.price_paid >= 0
-        @errors[:price_paid] = 'Kwota zapłacona musi być mniejsza lub równa cenie' unless @invoice.price_paid <= @invoice.price
+        unless @invoice.price_paid <= @invoice.price
+          @errors[:price_paid] =
+            'Kwota zapłacona musi być mniejsza lub równa cenie'
+        end
       else
         @errors[:price_paid] = 'Kwota zapłacona musi być liczbą'
       end
@@ -109,6 +116,7 @@ module PolishInvoicer
     def check_proforma
       return unless @invoice.proforma
       return unless @invoice.paid
+
       @errors[:paid] = 'Proforma nie może być opłacona'
     end
 
@@ -116,12 +124,14 @@ module PolishInvoicer
       return if @errors[:create_date]
       return if @errors[:payment_date]
       return if @invoice.create_date <= @invoice.payment_date
+
       @errors[:payment_date] = 'Termin płatności nie może być wcześniejszy niż data wystawienia'
     end
 
     def check_currency
       return if @errors[:currency]
       return if %w[PLN EUR USD GBP].include?(@invoice.currency)
+
       @errors[:currency] = 'Nieznana waluta'
     end
 

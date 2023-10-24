@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'polish_invoicer'
 
 invoice = PolishInvoicer::Invoice.new(

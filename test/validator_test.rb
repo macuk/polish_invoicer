@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module PolishInvoicer
@@ -111,10 +113,12 @@ module PolishInvoicer
       @invoice.proforma = true
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:paid]
       @invoice.paid = false
       v = Validator.new(@invoice)
       v.valid?
+
       assert_nil v.errors[:paid]
     end
 
@@ -129,14 +133,17 @@ module PolishInvoicer
       @invoice.vat = 23
       v = Validator.new(@invoice)
       v.valid?
+
       assert_nil v.errors[:no_vat_reason]
       @invoice.vat = -1
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:no_vat_reason]
       @invoice.no_vat_reason = 'reason'
       v = Validator.new(@invoice)
       v.valid?
+
       assert_nil v.errors[:no_vat_reason]
     end
 
@@ -145,10 +152,12 @@ module PolishInvoicer
       @invoice.payment_date = Date.parse('2018-04-01')
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:payment_date]
       @invoice.payment_date = Date.parse('2018-04-17')
       v = Validator.new(@invoice)
       v.valid?
+
       assert_nil v.errors[:payment_date]
     end
 
@@ -156,14 +165,17 @@ module PolishInvoicer
       @invoice.currency = nil
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:currency]
       @invoice.currency = 'XYZ'
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:currency]
       @invoice.currency = 'EUR'
       v = Validator.new(@invoice)
       v.valid?
+
       refute v.errors[:currency]
     end
 
@@ -171,24 +183,29 @@ module PolishInvoicer
       @invoice.exchange_rate = nil
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:exchange_rate]
-      @invoice.exchange_rate = 4,1234
+      @invoice.exchange_rate = 4.1234
       v = Validator.new(@invoice)
       v.valid?
+
       refute v.errors[:exchange_rate]
     end
 
     def test_lang
       v = Validator.new(@invoice)
       v.valid?
+
       refute v.errors[:lang]
       @invoice.lang = 'xx'
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[:lang]
       @invoice.lang = 'en'
       v = Validator.new(@invoice)
       v.valid?
+
       refute v.errors[:lang]
     end
 
@@ -198,6 +215,7 @@ module PolishInvoicer
       @invoice.send("#{field}=", value)
       v = Validator.new(@invoice)
       v.valid?
+
       assert v.errors[field]
     end
 
@@ -205,6 +223,7 @@ module PolishInvoicer
       @invoice.send("#{field}=", value)
       v = Validator.new(@invoice)
       v.valid?
+
       assert_nil v.errors[field]
     end
   end

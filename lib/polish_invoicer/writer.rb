@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module PolishInvoicer
   class Writer
-    attr_accessor :invoice
-    attr_accessor :logger, :wkhtmltopdf_path, :wkhtmltopdf_command
+    attr_accessor :invoice, :logger, :wkhtmltopdf_path, :wkhtmltopdf_command
 
     def initialize(invoice)
       @invoice = invoice
