@@ -49,8 +49,8 @@ html
         .col-xs-3 Vencimiento:
         .col-xs-3 = payment_date
       .row
-        .col-xs-3 Fecha de venta:
-        .col-xs-3 = trade_date
+        .col-xs-3
+        .col-xs-3
         .col-xs-3 Condiciones pago:
         .col-xs-3 = payment_type.to_s.downcase == 'przelew' ? 'transferencia' : 'efectivo'
 
@@ -85,7 +85,7 @@ html
       .row
         .col-xs-6
           .row
-            .col-xs-6 Importe factura:
+            .col-xs-6 Total a pagar:
             .col-xs-6
               b = "#{total_to_pay_value} #{currency}"
           .row
