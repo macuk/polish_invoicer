@@ -7,7 +7,7 @@ module PolishInvoicer
     def test_init
       i = Invoice.new
 
-      assert i.is_a?(Invoice)
+      assert_kind_of Invoice, i
     end
 
     def test_set_available_param
