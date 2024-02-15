@@ -137,7 +137,7 @@ module PolishInvoicer
 
     def check_lang
       return if blank?(@invoice.lang)
-      return if %w[pl pl_en en].include?(@invoice.lang)
+      return if %w[pl pl_en en es].include?(@invoice.lang)
 
       @errors[:lang] = 'Nieznany język'
     end

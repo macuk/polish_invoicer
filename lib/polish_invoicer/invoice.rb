@@ -28,7 +28,7 @@ module PolishInvoicer
       :lang,              # język na fakturze, domyślnie: zależny od ustawienia foreign_buyer
                           # foreign_buyer = false => lang = 'pl'
                           # foreign_buyer = true => lang = 'pl_en'
-                          # możliwe wartości: pl | pl_en | en
+                          # możliwe wartości: pl | pl_en | en | es
       :reverse_charge,    # faktura z odwrotnym obciążeniem VAT
       :currency,          # waluta rozliczeniowa, domyślnie: PLN (string)
       :exchange_rate      # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
