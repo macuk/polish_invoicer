@@ -28,3 +28,12 @@ i.save_to_pdf('/tmp/invoice-pkwiu-fv.pdf')
 i.vat = -1
 i.no_vat_reason = 'Zwolnienie przedmiotowe na podstawie art. 123 ust. 3 pkt. 10'
 i.save_to_pdf('/tmp/invoice-pkwiu-fv-reason.pdf')
+i.foreign_buyer = true
+i.lang = 'pl_en'
+i.save_to_pdf('/tmp/invoice-foreign-buyer.pdf')
+i.reverse_charge = true
+i.save_to_pdf('/tmp/invoice-reverse-charge.pdf')
+i.lang = 'en'
+i.save_to_pdf('/tmp/invoice-foreign-buyer-reverse-charge.pdf')
+i.lang = 'es'
+i.save_to_pdf('/tmp/invoice-foreign-buyer-reverse-charge-es.pdf')
