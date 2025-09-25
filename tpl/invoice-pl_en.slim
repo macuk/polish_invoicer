@@ -196,3 +196,11 @@ html
         b Do rozliczenia podatku VAT zobowiązany jest nabywca usługi (odwrotne obciążenie)
         .small
           em Levy of VAT reverse charged to recipient of service (reverse charge)
+
+      - if no_vat_reason.to_s.strip != ''
+        br
+        br
+        b Podstawa zwolnienia z podatku VAT:
+        .small
+          em Basis for VAT exemption:
+        = no_vat_reason
