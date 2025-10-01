@@ -130,7 +130,7 @@ module PolishInvoicer
 
     def check_currency
       return if @errors[:currency]
-      return if %w[PLN EUR USD GBP CHF CZK].include?(@invoice.currency)
+      return if %w[PLN EUR USD GBP CHF CZK RON].include?(@invoice.currency)
 
       @errors[:currency] = 'Nieznana waluta'
     end
