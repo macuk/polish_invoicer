@@ -20,6 +20,12 @@ html
       h6.small
         em = "Invoice number #{number}"
 
+      - if ksef_number
+        h4 = "Numer KSeF: #{ksef_number}"
+        h6.small
+          em = "KSeF number: #{ksef_number}"
+
+
       .row
         .col-xs-6
           h4 Sprzedawca

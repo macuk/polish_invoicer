@@ -109,6 +109,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
     :no_vat_reason,       # podstawa prawna zwolnienia z VAT (string)
     :footer,              # treść umieszczana w stopce faktury (string)
     :price_paid,          # kwota częściowego opłacenia faktury w złotych (float)
+    :ksef_number,         # numer faktury w KSeF (string)
 
 ### Parametry systemowe
 

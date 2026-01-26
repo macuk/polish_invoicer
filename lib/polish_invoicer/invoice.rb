@@ -4,6 +4,7 @@ module PolishInvoicer
   class Invoice
     AVAILABLE_PARAMS = [
       :number,            # numer faktury (string)
+      :ksef_number,       # numer faktury w KSeF (string)
       :create_date,       # data wystawienia faktury (date)
       :trade_date,        # data sprzedaży (date)
       :seller,            # adres sprzedawcy (tablica stringów)

@@ -18,6 +18,9 @@ html
 
       h3 = "Factura No. #{number}"
 
+      - if ksef_number
+        h4 = "Número KSeF: #{ksef_number}"
+
       .row
         .col-xs-6
           h4 Vendedor
