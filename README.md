@@ -110,6 +110,7 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
     :footer,              # treść umieszczana w stopce faktury (string)
     :price_paid,          # kwota częściowego opłacenia faktury w złotych (float)
     :ksef_number,         # numer faktury w KSeF (string)
+    :ksef_qr_code_url,    # adres URL kodu QR dla faktury w KSeF (string)
 
 ### Parametry systemowe
 

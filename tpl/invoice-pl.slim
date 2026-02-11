@@ -18,9 +18,6 @@ html
 
       h3 = "Faktura nr #{number}"
 
-      - if ksef_number
-        h4 = "Numer KSeF: #{ksef_number}"
-
       .row
         .col-xs-6
           h4 Sprzedawca
@@ -135,3 +132,12 @@ html
           b Podstawa zwolnienia z podatku VAT:
           br
           = no_vat_reason
+
+      - if ksef_number && ksef_qr_code_url
+        hr
+        h4 KSeF
+        img src=qr_code_data_url
+        br
+        = ksef_number
+        br
+        a href=ksef_qr_code_url #{ksef_qr_code_url}
