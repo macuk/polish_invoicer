@@ -115,6 +115,8 @@ module PolishInvoicer
     end
 
     def qr_code_data_url
+      return unless ksef_qr_code_url
+
       RQRCode::QRCode.new(ksef_qr_code_url).as_png(size: 220).to_data_url
     end
 
