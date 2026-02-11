@@ -18,9 +18,6 @@ html
 
       h3 = "Invoice number #{number}"
 
-      - if ksef_number
-        h4 = "KSeF number: #{ksef_number}"
-
       .row
         .col-xs-6
           h4 Seller
@@ -117,3 +114,16 @@ html
         br
         br
         b Levy of VAT reverse charged to recipient of service (reverse charge)
+
+      - if ksef_number && ksef_qr_code_url
+        hr
+        .row
+          .col-xs-4
+            img src=qr_code_data_url
+          .col-xs-8
+            br
+            h4 KSeF
+            = ksef_number
+            br
+            br
+            a href=ksef_qr_code_url #{ksef_qr_code_url}

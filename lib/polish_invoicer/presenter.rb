@@ -33,7 +33,7 @@ module PolishInvoicer
     end
 
     def copy_additional_params
-      %w[net_value vat_value gross_value exchanged_tax].each do |field|
+      %w[net_value vat_value gross_value exchanged_tax qr_code_data_url].each do |field|
         @out[field.to_sym] = @invoice.send(field)
       end
     end

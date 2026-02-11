@@ -20,12 +20,6 @@ html
       h6.small
         em = "Invoice number #{number}"
 
-      - if ksef_number
-        h4 = "Numer KSeF: #{ksef_number}"
-        h6.small
-          em = "KSeF number: #{ksef_number}"
-
-
       .row
         .col-xs-6
           h4 Sprzedawca
@@ -210,3 +204,16 @@ html
         .small
           em Basis for VAT exemption:
         = no_vat_reason
+
+      - if ksef_number && ksef_qr_code_url
+        hr
+        .row
+          .col-xs-4
+            img src=qr_code_data_url
+          .col-xs-8
+            br
+            h4 KSeF
+            = ksef_number
+            br
+            br
+            a href=ksef_qr_code_url #{ksef_qr_code_url}

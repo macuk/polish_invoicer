@@ -5,6 +5,7 @@ module PolishInvoicer
     AVAILABLE_PARAMS = [
       :number,            # numer faktury (string)
       :ksef_number,       # numer faktury w KSeF (string)
+      :ksef_qr_code_url,  # adres URL kodu QR dla faktury w KSeF
       :create_date,       # data wystawienia faktury (date)
       :trade_date,        # data sprzedaży (date)
       :seller,            # adres sprzedawcy (tablica stringów)
@@ -111,6 +112,12 @@ module PolishInvoicer
 
     def template_file
       proforma ? "proforma-#{template_lang}.slim" : "invoice-#{template_lang}.slim"
+    end
+
+    def qr_code_data_url
+      return unless ksef_qr_code_url
+
+      RQRCode::QRCode.new(ksef_qr_code_url).as_png(size: 220).to_data_url
     end
 
     private
