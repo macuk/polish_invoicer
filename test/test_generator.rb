@@ -9,7 +9,9 @@ i = PolishInvoicer::Invoice.new(
   item_name: 'Jakiś długi tytuł i jeszcze jakieś informacje na różne tematy oraz dodatkowy komentarz w sprawie różnej.',
   price: 123.45, payment_date: Date.today,
   comments: 'Test uwag', footer: 'Stopka faktury plus tekst promocyjny',
-  seller_nip: '123-456-78-90', buyer_nip: '987-654-32-10'
+  seller_nip: '123-456-78-90', buyer_nip: '987-654-32-10',
+  ksef_number: '1234567890-20260211-0200C0785341-F8',
+  ksef_qr_code_url: 'https://qr-test.ksef.mf.gov.pl/invoice/1234567890/11-02-2026/vgAXyW8BGst1ply1ag8hwbZ84Qz4Fgi0GDw6r84u6Pg'
 )
 
 i.save_to_pdf('/tmp/invoice-default.pdf')
