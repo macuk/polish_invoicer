@@ -135,9 +135,13 @@ html
 
       - if ksef_number && ksef_qr_code_url
         hr
-        h4 KSeF
-        img src=qr_code_data_url
-        br
-        = ksef_number
-        br
-        a href=ksef_qr_code_url #{ksef_qr_code_url}
+        .row
+          .col-xs-4
+            img src=qr_code_data_url
+          .col-xs-8
+            br
+            h4 KSeF
+            = ksef_number
+            br
+            br
+            a href=ksef_qr_code_url #{ksef_qr_code_url}
