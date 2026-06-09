@@ -20,6 +20,11 @@ html
       h6.small
         em = "Invoice number #{number}"
 
+      - if vat_cash_accounting
+        b Metoda kasowa
+        .small
+          em VAT cash accounting
+
       .row
         .col-xs-6
           h4 Sprzedawca
@@ -196,13 +201,6 @@ html
         b Do rozliczenia podatku VAT zobowiązany jest nabywca usługi (odwrotne obciążenie)
         .small
           em Levy of VAT reverse charged to recipient of service (reverse charge)
-
-      - if vat_cash_accounting
-        br
-        br
-        b Metoda kasowa
-        .small
-          em VAT cash accounting
 
       - if no_vat_reason.to_s.strip != ''
         br

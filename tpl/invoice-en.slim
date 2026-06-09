@@ -18,6 +18,9 @@ html
 
       h3 = "Invoice number #{number}"
 
+      - if vat_cash_accounting
+        b VAT cash accounting
+
       .row
         .col-xs-6
           h4 Seller
@@ -114,11 +117,6 @@ html
         br
         br
         b Levy of VAT reverse charged to recipient of service (reverse charge)
-
-      - if vat_cash_accounting
-        br
-        br
-        b VAT cash accounting
 
       - if ksef_number && ksef_qr_code_url
         hr

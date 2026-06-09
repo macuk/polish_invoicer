@@ -18,6 +18,9 @@ html
 
       h3 = "Faktura nr #{number}"
 
+      - if vat_cash_accounting
+        b Metoda kasowa
+
       .row
         .col-xs-6
           h4 Sprzedawca
@@ -125,11 +128,6 @@ html
             - comments.each do |line|
               = line
               br
-
-      - if vat_cash_accounting
-        br
-        br
-          b Metoda kasowa
 
       - if no_vat_reason.to_s.strip != ''
         br
