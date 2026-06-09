@@ -18,6 +18,9 @@ html
 
       h3 = "Factura No. #{number}"
 
+      - if vat_cash_accounting
+        b Contabilidad de caja de IVA
+
       .row
         .col-xs-6
           h4 Vendedor

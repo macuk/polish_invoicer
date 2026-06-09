@@ -14,6 +14,9 @@ module PolishInvoicer
       i = Invoice.new(number: '1/2014')
 
       assert_equal '1/2014', i.number
+      i = Invoice.new(vat_cash_accounting: true)
+
+      assert i.vat_cash_accounting
     end
 
     def test_set_unavailable_param
@@ -127,6 +130,7 @@ module PolishInvoicer
       assert_equal 'Przelew', i.payment_type
       assert i.paid
       refute i.proforma
+      refute i.vat_cash_accounting
     end
 
     def test_raise_when_save_to_html_and_not_valid

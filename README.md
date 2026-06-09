@@ -95,6 +95,8 @@ invoice.save_to_pdf('/path/to/invoice.pdf')
                           # wartość domyślna: false
     :reverse_charge       # faktura z odwrotnym obciążeniem VAT (boolean)
                           # wartość domyślna: false
+    :vat_cash_accounting  # faktura z metodą kasową (boolean)
+                          # wartość domyślna: false
     :currency             # waluta rozliczeniowa (string)
                           # wartość domyślna: PLN                      
     :exchange_rate        # kurs waluty rozliczeniowej (float)

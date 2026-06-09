@@ -20,6 +20,11 @@ html
       h6.small
         em = "Invoice number #{number}"
 
+      - if vat_cash_accounting
+        b Metoda kasowa
+        .small
+          em VAT cash accounting
+
       .row
         .col-xs-6
           h4 Sprzedawca
