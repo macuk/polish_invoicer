@@ -126,6 +126,11 @@ html
               = line
               br
 
+      - if vat_cash_accounting
+        br
+        br
+          b Metoda kasowa
+
       - if no_vat_reason.to_s.strip != ''
         br
         br

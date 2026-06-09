@@ -3,37 +3,38 @@
 module PolishInvoicer
   class Invoice
     AVAILABLE_PARAMS = [
-      :number,            # numer faktury (string)
-      :ksef_number,       # numer faktury w KSeF (string)
-      :ksef_qr_code_url,  # adres URL kodu QR dla faktury w KSeF
-      :create_date,       # data wystawienia faktury (date)
-      :trade_date,        # data sprzedaży (date)
-      :seller,            # adres sprzedawcy (tablica stringów)
-      :seller_nip,        # NIP sprzedawcy (string)
-      :buyer,             # adres nabywcy (tablica stringów)
-      :buyer_nip,         # NIP nabywcy (string)
-      :recipient,         # odbiorca faktury (tablica stringów)
-      :item_name,         # nazwa usługi (string)
-      :price,             # cena w złotych (float)
-      :price_paid,        # kwota częściowego opłacenia faktury w złotych
-      :gross_price,       # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
-      :vat,               # stawka vat, domyślnie: 23 (integer)
-      :pkwiu,             # numer PKWiU (string)
-      :payment_type,      # rodzaj płatności, domyślnie: 'Przelew' (string)
-      :payment_date,      # termin płatności (date)
-      :comments,          # uwagi (string lub tablica stringów)
-      :paid,              # znacznik opłacenia faktury, domyślnie: true (boolean)
-      :footer,            # treść umieszczana w stopce faktury (string)
-      :proforma,          # znacznik faktury pro-forma, domyślnie: false (boolean)
-      :no_vat_reason,     # podstawa prawna zwolnienia z VAT (string)
-      :foreign_buyer,     # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
-      :lang,              # język na fakturze, domyślnie: zależny od ustawienia foreign_buyer
-                          # foreign_buyer = false => lang = 'pl'
-                          # foreign_buyer = true => lang = 'pl_en'
-                          # możliwe wartości: pl | pl_en | en | es
-      :reverse_charge,    # faktura z odwrotnym obciążeniem VAT
-      :currency,          # waluta rozliczeniowa, domyślnie: PLN (string)
-      :exchange_rate      # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
+      :number,              # numer faktury (string)
+      :ksef_number,         # numer faktury w KSeF (string)
+      :ksef_qr_code_url,    # adres URL kodu QR dla faktury w KSeF
+      :create_date,         # data wystawienia faktury (date)
+      :trade_date,          # data sprzedaży (date)
+      :seller,              # adres sprzedawcy (tablica stringów)
+      :seller_nip,          # NIP sprzedawcy (string)
+      :buyer,               # adres nabywcy (tablica stringów)
+      :buyer_nip,           # NIP nabywcy (string)
+      :recipient,           # odbiorca faktury (tablica stringów)
+      :item_name,           # nazwa usługi (string)
+      :price,               # cena w złotych (float)
+      :price_paid,          # kwota częściowego opłacenia faktury w złotych
+      :gross_price,         # znacznik rodzaju ceny (netto/brutto), domyślnie: true (boolean)
+      :vat,                 # stawka vat, domyślnie: 23 (integer)
+      :pkwiu,               # numer PKWiU (string)
+      :payment_type,        # rodzaj płatności, domyślnie: 'Przelew' (string)
+      :payment_date,        # termin płatności (date)
+      :comments,            # uwagi (string lub tablica stringów)
+      :paid,                # znacznik opłacenia faktury, domyślnie: true (boolean)
+      :footer,              # treść umieszczana w stopce faktury (string)
+      :proforma,            # znacznik faktury pro-forma, domyślnie: false (boolean)
+      :no_vat_reason,       # podstawa prawna zwolnienia z VAT (string)
+      :foreign_buyer,       # nabywcą jest firma spoza Polski, domyślnie: false (boolean)
+      :lang,                # język na fakturze, domyślnie: zależny od ustawienia foreign_buyer
+                            # foreign_buyer = false => lang = 'pl'
+                            # foreign_buyer = true => lang = 'pl_en'
+                            # możliwe wartości: pl | pl_en | en | es
+      :reverse_charge,      # faktura z odwrotnym obciążeniem VAT
+      :vat_cash_accounting, # faktura z metodą kasową
+      :currency,            # waluta rozliczeniowa, domyślnie: PLN (string)
+      :exchange_rate        # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
     ].freeze
 
     attr_accessor(*AVAILABLE_PARAMS, :template_path, :logger, :wkhtmltopdf_path, :wkhtmltopdf_command)
@@ -130,6 +131,7 @@ module PolishInvoicer
       @proforma = false
       @foreign_buyer = false
       @reverse_charge = false
+      @vat_cash_accounting = false
       @currency = 'PLN'
       @exchange_rate = 1.0000
       @recipient = []

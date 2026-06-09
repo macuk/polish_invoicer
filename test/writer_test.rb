@@ -35,5 +35,26 @@ module PolishInvoicer
       assert_equal 'FakeLogger', writer.logger
       assert_equal 'wkhtmltopdf_fake_command', writer.wkhtmltopdf_command
     end
+
+    def test_vat_cash_accounting_note_in_templates
+      expected_label_per_lang = {
+        'pl' => 'Metoda kasowa',
+        'pl_en' => 'VAT cash accounting',
+        'en' => 'VAT cash accounting',
+        'es' => 'Contabilidad de caja de IVA'
+      }
+
+      expected_label_per_lang.each do |lang, label|
+        invoice = create_valid_invoice
+        invoice.lang = lang
+        invoice.vat_cash_accounting = true
+        path = "/tmp/test-vat-cash-accounting-#{lang}.html"
+
+        invoice.save_to_html(path)
+
+        assert_includes File.read(path), label
+        File.unlink(path)
+      end
+    end
   end
 end

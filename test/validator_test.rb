@@ -108,6 +108,13 @@ module PolishInvoicer
       check_ok(:proforma, false)
     end
 
+    def test_vat_cash_accounting_validation
+      check_error(:vat_cash_accounting)
+      check_error(:vat_cash_accounting, 'test')
+      check_ok(:vat_cash_accounting, true)
+      check_ok(:vat_cash_accounting, false)
+    end
+
     def test_proforma_not_paid
       @invoice.paid = true
       @invoice.proforma = true
