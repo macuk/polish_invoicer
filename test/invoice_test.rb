@@ -17,6 +17,9 @@ module PolishInvoicer
       i = Invoice.new(vat_cash_accounting: true)
 
       assert i.vat_cash_accounting
+      i = Invoice.new(prepayment_invoice: true)
+
+      assert i.prepayment_invoice
     end
 
     def test_set_unavailable_param
@@ -131,6 +134,7 @@ module PolishInvoicer
       assert i.paid
       refute i.proforma
       refute i.vat_cash_accounting
+      refute i.prepayment_invoice
     end
 
     def test_raise_when_save_to_html_and_not_valid

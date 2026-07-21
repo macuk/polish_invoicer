@@ -72,6 +72,9 @@ module PolishInvoicer
       unless [true, false].include?(@invoice.vat_cash_accounting)
         @errors[:vat_cash_accounting] = 'Znacznik metody kasowej musi być podany jako boolean'
       end
+      unless [true, false].include?(@invoice.prepayment_invoice)
+        @errors[:prepayment_invoice] = 'Znacznik faktury zaliczkowej musi być podany jako boolean'
+      end
       return if [true, false].include?(@invoice.reverse_charge)
 
       @errors[:reverse_charge] = 'Znacznik odwrotnego obciążenia VAT musi być podany jako boolean'

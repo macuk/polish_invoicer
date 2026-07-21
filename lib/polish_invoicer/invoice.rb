@@ -33,6 +33,7 @@ module PolishInvoicer
                             # możliwe wartości: pl | pl_en | en | es
       :reverse_charge,      # faktura z odwrotnym obciążeniem VAT
       :vat_cash_accounting, # faktura z metodą kasową
+      :prepayment_invoice,  # faktura zaliczkowa
       :currency,            # waluta rozliczeniowa, domyślnie: PLN (string)
       :exchange_rate        # kurs waluty rozliczeniowej, domyślnie: 1.0000 (float)
     ].freeze
@@ -132,6 +133,7 @@ module PolishInvoicer
       @foreign_buyer = false
       @reverse_charge = false
       @vat_cash_accounting = false
+      @prepayment_invoice = false
       @currency = 'PLN'
       @exchange_rate = 1.0000
       @recipient = []

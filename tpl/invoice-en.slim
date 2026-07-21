@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Invoice number #{number}"
+    title = prepayment_invoice ? "Prepayment Invoice number #{number}" : "Invoice number #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,7 +16,7 @@ html
   body
     .container
 
-      h3 = "Invoice number #{number}"
+      h3 = prepayment_invoice ? "Prepayment Invoice number #{number}" : "Invoice number #{number}"
 
       - if vat_cash_accounting
         b VAT cash accounting

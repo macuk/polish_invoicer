@@ -15,6 +15,9 @@ i = PolishInvoicer::Invoice.new(
 )
 
 i.save_to_pdf('/tmp/invoice-default.pdf')
+i.prepayment_invoice = true
+i.save_to_pdf('/tmp/invoice-prepayment.pdf')
+i.prepayment_invoice = false
 i.vat_cash_accounting = true
 i.save_to_pdf('/tmp/invoice-vat-cash-accounting.pdf')
 i.vat_cash_accounting = false
@@ -36,17 +39,26 @@ i.save_to_pdf('/tmp/invoice-pkwiu-fv-reason.pdf')
 i.foreign_buyer = true
 i.lang = 'pl_en'
 i.save_to_pdf('/tmp/invoice-foreign-buyer.pdf')
+i.prepayment_invoice = true
+i.save_to_pdf('/tmp/invoice-prepayment-pl-en.pdf')
+i.prepayment_invoice = false
 i.vat_cash_accounting = true
 i.save_to_pdf('/tmp/invoice-vat-cash-accounting-pl-en.pdf')
 i.vat_cash_accounting = false
 i.reverse_charge = true
 i.save_to_pdf('/tmp/invoice-reverse-charge.pdf')
 i.lang = 'en'
+i.prepayment_invoice = true
+i.save_to_pdf('/tmp/invoice-prepayment-en.pdf')
+i.prepayment_invoice = false
 i.vat_cash_accounting = true
 i.save_to_pdf('/tmp/invoice-vat-cash-accounting-en.pdf')
 i.vat_cash_accounting = false
 i.save_to_pdf('/tmp/invoice-foreign-buyer-reverse-charge.pdf')
 i.lang = 'es'
+i.prepayment_invoice = true
+i.save_to_pdf('/tmp/invoice-prepayment-es.pdf')
+i.prepayment_invoice = false
 i.save_to_pdf('/tmp/invoice-foreign-buyer-reverse-charge-es.pdf')
 i.vat_cash_accounting = true
 i.save_to_pdf('/tmp/invoice-vat-cash-accounting-es.pdf')
