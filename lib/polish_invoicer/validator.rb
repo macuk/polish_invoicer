@@ -57,6 +57,7 @@ module PolishInvoicer
       @errors[:buyer] = 'Nabywca musi być podany jako tablica stringów' unless @invoice.buyer.is_a?(Array)
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def check_booleans
       unless [true, false].include?(@invoice.gross_price)
         @errors[:gross_price] = 'Znacznik rodzaju ceny musi być podany jako boolean'
@@ -79,6 +80,7 @@ module PolishInvoicer
 
       @errors[:reverse_charge] = 'Znacznik odwrotnego obciążenia VAT musi być podany jako boolean'
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def check_dates
       @errors[:create_date] = 'Data wystawienia musi być typu Date' unless @invoice.create_date.is_a?(Date)

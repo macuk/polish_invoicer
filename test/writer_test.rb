@@ -74,6 +74,7 @@ module PolishInvoicer
         invoice.save_to_html(path)
 
         html = File.read(path)
+
         labels.each do |label|
           assert_includes html, label
         end
