@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Factura No. #{number}"
+    title = prepayment_invoice ? "Factura de anticipo No. #{number}" : "Factura No. #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,7 +16,7 @@ html
   body
     .container
 
-      h3 = "Factura No. #{number}"
+      h3 = prepayment_invoice ? "Factura de anticipo No. #{number}" : "Factura No. #{number}"
 
       - if vat_cash_accounting
         b Contabilidad de caja de IVA

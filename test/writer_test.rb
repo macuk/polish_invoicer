@@ -56,5 +56,30 @@ module PolishInvoicer
         File.unlink(path)
       end
     end
+
+    def test_prepayment_invoice_header_in_templates
+      expected_labels_per_lang = {
+        'pl' => ['Faktura zaliczkowa nr 1/2014'],
+        'pl_en' => ['Faktura zaliczkowa nr 1/2014', 'Prepayment Invoice number 1/2014'],
+        'en' => ['Prepayment Invoice number 1/2014'],
+        'es' => ['Factura de anticipo No. 1/2014']
+      }
+
+      expected_labels_per_lang.each do |lang, labels|
+        invoice = create_valid_invoice
+        invoice.lang = lang
+        invoice.prepayment_invoice = true
+        path = "/tmp/test-prepayment-invoice-#{lang}.html"
+
+        invoice.save_to_html(path)
+
+        html = File.read(path)
+
+        labels.each do |label|
+          assert_includes html, label
+        end
+        File.unlink(path)
+      end
+    end
   end
 end

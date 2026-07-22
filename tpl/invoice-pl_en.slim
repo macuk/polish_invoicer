@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title = "Faktura nr #{number}"
+    title = prepayment_invoice ? "Faktura zaliczkowa nr #{number}" : "Faktura nr #{number}"
     css:
       /*!
        * Bootstrap v3.3.7 (http://getbootstrap.com)
@@ -16,9 +16,9 @@ html
   body
     .container
 
-      h3 = "Faktura nr #{number}"
+      h3 = prepayment_invoice ? "Faktura zaliczkowa nr #{number}" : "Faktura nr #{number}"
       h6.small
-        em = "Invoice number #{number}"
+        em = prepayment_invoice ? "Prepayment Invoice number #{number}" : "Invoice number #{number}"
 
       - if vat_cash_accounting
         b Metoda kasowa

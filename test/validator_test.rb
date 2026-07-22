@@ -115,6 +115,13 @@ module PolishInvoicer
       check_ok(:vat_cash_accounting, false)
     end
 
+    def test_prepayment_invoice_validation
+      check_error(:prepayment_invoice)
+      check_error(:prepayment_invoice, 'test')
+      check_ok(:prepayment_invoice, true)
+      check_ok(:prepayment_invoice, false)
+    end
+
     def test_proforma_not_paid
       @invoice.paid = true
       @invoice.proforma = true

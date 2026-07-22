@@ -20,6 +20,7 @@ invoice = PolishInvoicer::Invoice.new(
   gross_price: false,
   # proforma: true,
   # paid: false,
+  # prepayment_invoice: true,
   foreign_buyer: true,
   reverse_charge: true,
   currency: 'EUR',
